@@ -1,0 +1,1 @@
+DATo curioso el tipo hada es debil alacero 
