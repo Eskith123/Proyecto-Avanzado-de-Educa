@@ -1,16 +1,19 @@
 type Props = {
     numero: number;
     nombre: string;
+    vida: number;
     tipo: string;
     ataque?:number;
     defensa:number;
     descripcion:string;
     imagen:string;
+
 };
 
-function cardDetail({
+function CardDetail({
     ataque,
     defensa,
+    vida,
     descripcion,
     imagen,
     nombre,
@@ -26,13 +29,14 @@ function cardDetail({
             <img src={imagen} alt={nombre} />
             <p>Tipo: {tipo}</p>
             <p>Ataque: {ataque}</p>
-            <p>Defensa {defensa}</p>
+            <p>Defensa: {defensa}</p>
             <p>{descripcion}</p>
+            <p>vida: {vida}</p>
         </div>
     );
 }
 
-export default cardDetail
+export default CardDetail
 
 
 
