@@ -9,9 +9,7 @@ function App() {
       ataque={123}
       nombre="Ceruledge"
       defensa={80}
-      descripcion="Ceruledge está basado en un caballero medieval, en especial en el Cid Campeador, caballero de la Reconquista muy conocido en España por sus leyendas, pinturas, cantares y escrituras. También era muy conocido por sus dos famosas espadas: Tizona y Colada, como las que posee Ceruledge. Finalmente, el tipo fantasma está relacionado con la famosa leyenda de que el Cid ganó una batalla después de haber muerto.
-                     Estecontenido proviene de wikidex.net, y debe darse atribución a sus autores, tal como especifica la licencia.
-                       Se prohíbe su uso a PlagioDex (el wiki de FANDOOM), por copiar reiteradamente sin dar atribución"
+      descripcion="Ceruledge se pone una armadura antigua cargada de rencores y empuña espadas hechas de fuego y energía fantasma. En combate, estas hojas se transforman en grandes espadas para aumentar el poder de Ceruledge. Los cortes de estas grandes espadas dejan heridas de las que fluirá la energía vital."
       imagen="https://img.pokemondb.net/artwork/large/ceruledge.jpg"
       numero={937}
       tipo="FUEGO Y FANTASMA"
