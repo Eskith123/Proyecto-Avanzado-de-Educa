@@ -36,13 +36,10 @@ function App() {
       numero={858}
       tipo="PSIQUICO Y HADA"
       vida={57}
-    />
+       />
+
+      <button className='cursor-pointer bg-blue-500 hover:bg-blue-700 transition duration-300 text-white font-bold py-2 px-4 rounded w-10 h-32'></button>
 </div>
-
-
-  
-
-
 );
 }
 
