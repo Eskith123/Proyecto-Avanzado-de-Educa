@@ -22,7 +22,7 @@ function CardDetail({
 }: Props){
     return(
        <div className="bg-gradient-to-br from-yellow-300 to-red-400 border-4 border-black rounded-xl shadow-xl p-4 w-72">
-  <h2 className="text-2xl font-bold text-center text-white">{nombre}</h2>
+  <h2 className="text-2xl font-bold text-center text-white">{nombre}({numero})</h2>
   <img src={imagen} alt={nombre} className="w-full h-48 object-cover rounded-md" />
   <div className="mt-2 text-sm text-white">
     <p><strong>Tipo:</strong> {tipo}</p>
