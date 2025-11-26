@@ -7,7 +7,7 @@ function App() {
   return(
   <div>  
    <CardDetail
-      ataque={123}
+      ataque={125}
       nombre="Ceruledge"
       defensa={80}
       descripcion="Ceruledge se pone una armadura antigua cargada de rencores y empuña espadas hechas de fuego y energía fantasma. En combate, estas hojas se transforman en grandes espadas para aumentar el poder de Ceruledge. Los cortes de estas grandes espadas dejan heridas de las que fluirá la energía vital."
@@ -15,10 +15,11 @@ function App() {
       numero={937}
       tipo="FUEGO Y FANTASMA"
       vida={75}
+      velocidad={85}
     />
 
    <CardDetail
-      ataque={60}
+      ataque={608}
       nombre="Armarouge"
       defensa={100}
       descripcion="El conjunto de armadura de Armarouge pertenecía a un guerrero distinguido y es la fuente de la energía utilizada para sus movimientos de tipo Psíquico. También utiliza las capacidades psíquicas de esta armadura para controlar la energía de fuego dentro de su cuerpo y desatar ataques."
@@ -26,6 +27,7 @@ function App() {
       numero={936}
       tipo="FUEGO Y PSIQUICO"
       vida={85}
+      velocidad={75}
     />
 
     <CardDetail
@@ -37,6 +39,7 @@ function App() {
       numero={858}
       tipo="PSIQUICO Y HADA"
       vida={57}
+      velocidad={29}
        />
 
       
