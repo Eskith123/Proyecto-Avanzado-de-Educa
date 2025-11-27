@@ -42,6 +42,30 @@ function App() {
       velocidad={29}
        />
 
+     <CardDetail
+      ataque={98}
+      nombre="Toxtricity"
+      defensa={95}
+      descripcion="Tiene un órgano eléctrico en el pecho. Mientras genera electricidad, llena su entorno con lo que suena como el rasgueo de un bajo."
+      imagen="https://img.pokemondb.net/artwork/large/toxtricity-amped.jpg"
+      numero={849}
+      tipo="ELECTRICO Y VENENO"
+      vida={75}
+      velocidad={75}
+       />
+
+       <CardDetail
+      ataque={125}
+      nombre="Golisopod"
+      defensa={140}
+      descripcion="Hace lo que sea por conseguir la victoria. Si el rival se descuida, aprovecha para asestarle un golpe letal con sus pequeñas garras frontales."
+      imagen="https://img.pokemondb.net/artwork/large/golisopod.jpg"
+      numero={768}
+      tipo="BICHO Y AGUA"
+      vida={75}
+      velocidad={40}
+       /> 
+
       
 </div>
 );
