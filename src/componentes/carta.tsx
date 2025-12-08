@@ -60,20 +60,7 @@ function CardDetail({
       <p className="mt-3 text-xs text-gray-600 italic border-t border-gray-300 pt-2">
         "{descripcion}"
       </p>
-
-      <div className="flex gap-2 mt-4">
-        <button
-          className="w-1/2 bg-blue-500 hover:bg-blue-700 text-white font-semibold py-1.5 text-sm rounded-lg transition"
-        >
-          ✏️ Editar
-        </button>
-        <button
-          className="w-1/2 bg-red-600 hover:bg-red-800 text-white font-semibold py-1.5 text-sm rounded-lg transition"
-        >
-          🗑️ Borrar
-        </button>
-      </div>
-    </div>
+   </div>
   </div>
 </div>
     );
