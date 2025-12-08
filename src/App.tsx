@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import './componentes/carta';
 import CardDetail from './componentes/carta';
