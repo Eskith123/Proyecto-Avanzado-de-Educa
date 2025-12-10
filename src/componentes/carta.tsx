@@ -19,8 +19,8 @@ function CardDetail({
     numero,
     tipo,
     vida,
-    velocidad
-
+    velocidad 
+    
 }: Props){
     return(
   
