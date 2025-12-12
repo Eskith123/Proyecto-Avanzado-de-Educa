@@ -4,7 +4,6 @@ type Props = {
     tipo: string;
     ataque:number;
     defensa:number;
-    descripcion:string;
     imagen:string;
     vida:number;
     velocidad:number;
@@ -13,7 +12,6 @@ type Props = {
 function CardDetail({
     ataque,
     defensa,
-    descripcion,
     imagen,
     nombre,
     numero,
@@ -24,46 +22,78 @@ function CardDetail({
 }: Props){
     return(
   
-   <div className="bg-gray-900 p-8 min-h-screen flex justify-center items-start">
-  <div className="max-w-6xl flex flex-wrap justify-center gap-6">
+   //div principal//   
+   <div className="flex flex-col items-center p-4">
 
-    <div className="bg-white border-4 border-yellow-500 rounded-xl shadow-xl p-3 w-64 transition duration-300 hover:scale-105">
-      <div className="flex justify-between items-center mb-2">
-        <h2 className="text-xl font-bold uppercase text-gray-800">{nombre}</h2>
-        <span className="text-base font-semibold text-gray-600">N.º {numero}</span>
-      </div>
+  
+  <div className="mb-8">
+    <h1 className="text-3xl font-bold text-gray-800">Tarjeta de Personaje</h1>
+  </div>
 
-      <div className="border-4 border-gray-700 rounded-lg overflow-hidden">
+  <div className="flex flex-col md:flex-row items-start space-y-8 md:space-y-0 md:space-x-12 max-w-4xl w-full p-4">
+
+    {/* 1. Bloque de la Carta Visual (simula la tarjeta de la izquierda) */}
+    <div className="w-full md:w-1/3 max-w-[200px] mx-auto bg-white shadow-xl border border-gray-300 rounded-xl p-3 flex flex-col items-center aspect-2/3">
+      
+      {/* Número en la esquina superior izquierda */}
+      <div className="text-4xl font-extrabold text-gray-800 self-start">{numero}</div>
+      
+      {/* Contenedor de la Imagen */}
+      <div className="my-auto w-45 h-45 border-gray-400 rounded-full flex items-center justify-center">
+        {/* Usamos la imagen original aquí */}
         <img
           src={imagen}
-          alt={nombre}
-          className="w-full h-40 object-cover"
+          className="object-cover w-full h-full"
+          alt="Imagen del personaje"
         />
       </div>
+</div>
 
-      <div className="text-center my-2">
-        <span className="inline-block bg-green-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
-          Tipo: {tipo}
-        </span>
-      </div>
 
-      <div className="mt-2 p-2 border-2 border-red-500 bg-red-100 rounded-lg">
-        <h3 className="text-sm font-bold text-red-700 mb-1 border-b border-red-300">Stats Base</h3>
-        <div className="grid grid-cols-2 gap-x-2 text-xs font-medium">
-          <p><span className="text-red-600">❤️ Vida:</span> {vida}</p>
-          <p><span className="text-blue-600">🛡️ Defensa:</span> {defensa}</p>
-          <p><span className="text-orange-600">⚔️ Ataque:</span> {ataque}</p>
-          <p><span className="text-yellow-600">⚡ Velocidad:</span> {velocidad}</p>
-        </div>
-      </div>
-
-      <p className="mt-3 text-xs text-gray-600 italic border-t border-gray-300 pt-2">
-        "{descripcion}"
+    {/* 2. Bloque de la Información (simula el texto de la derecha) */}
+    <div className="w-full md:w-2/3 space-y-4 text-gray-800 md:pt-2">
+      
+      {/* Nombre (Etiqueta principal) */}
+      <p className="text-xl font-bold mb-4">
+        <span className="text-gray-900 mr-2">Nombre:</span>
+        {nombre}
       </p>
-   </div>
+
+      {/* **Estadísticas Clave (Ataque, Defensa, Vida)** - Usando los emojis originales */}
+      
+      <p className="text-lg">
+        <span className="font-semibold w-32 inline-block">⚔️ Ataque:</span>
+        <span className="font-bold text-xl text-yellow-600">{ataque}</span>
+      </p>
+
+      <p className="text-lg">
+        <span className="font-semibold w-32 inline-block">🛡️ Defensa:</span>
+        <span className="font-bold text-xl text-blue-600">{defensa}</span>
+      </p>
+      
+      <p className="text-lg">
+        <span className="font-semibold w-32 inline-block">❤️ Vida:</span>
+        <span className="font-bold text-xl text-red-600">{vida}</span>
+      </p>
+      
+      {/* Información Adicional (Tipo y Velocidad) */}
+      <p className="text-base pt-4">
+        <span className="font-semibold w-32 inline-block">🆎 Tipo:</span>
+        <span className="font-bold text-xl text-green-600">{tipo}</span> 
+      </p>
+      
+      <p className="text-base">
+        <span className="font-semibold w-32 inline-block">⚡ Velocidad:</span>
+        <span className="font-bold text-xl text-orange-600">{velocidad}</span> 
+      </p>
+      
+      
+    
+    </div>
+
   </div>
 </div>
-    );
+   );
 }
 
 export default CardDetail;
