@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 import './componentes/carta';
 import CardDetail from './componentes/carta';
@@ -6,7 +7,7 @@ import CardDetail from './componentes/carta';
 function App() {
   return(
   <div>  
-   <CardDetail
+    <CardDetail 
       ataque={125}
       nombre="Ceruledge"
       defensa={80}
@@ -16,7 +17,7 @@ function App() {
       vida={75}
       velocidad={85}
     />
-</div>
+  </div>
 );
 }
 
