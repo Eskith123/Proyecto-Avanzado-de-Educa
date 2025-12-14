@@ -1,33 +1,7 @@
-// src/componentes/ModalCartaDetalle.tsx
+
 import React from 'react';
 import type { CartaProps } from '../tipos/Carta';
 
-// Lógica de estilos (copiar del punto 1)
-const obtenerClaseRaza = (raza: string) => {
-    // Solo necesitamos las clases de texto y borde
-    const { claseTexto, claseBorde } = obtenerEstiloRaza(raza);
-    return `${claseTexto} ${claseBorde}`;
-};
-
-// Lógica de estilos (copiar del punto 1)
-const obtenerEstiloRaza = (raza: string) => { /* ... (código del punto 1) ... */
-    switch (raza) {
-        case 'Shinigami':
-          return { claseBorde: 'border-red-600', claseTexto: 'text-red-400', fondoRaza: 'bg-red-900/30' };
-        case 'Quincy':
-          return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400', fondoRaza: 'bg-blue-900/30' };
-        case 'Arrancar':
-          return { claseBorde: 'border-gray-300', claseTexto: 'text-gray-300', fondoRaza: 'bg-gray-800/50' };
-        case 'Hollow':
-          return { claseBorde: 'border-green-500', claseTexto: 'text-green-500', fondoRaza: 'bg-green-900/30' };
-        case 'Visored':
-          return { claseBorde: 'border-yellow-500', claseTexto: 'text-yellow-400', fondoRaza: 'bg-yellow-900/30' };
-        case 'Humano':
-            return { claseBorde: 'border-amber-600', claseTexto: 'text-amber-500', fondoRaza: 'bg-amber-900/30' };
-        default:
-          return { claseBorde: 'border-gray-500', claseTexto: 'text-gray-500', fondoRaza: 'bg-gray-800/50' };
-      }
-};
 
 
 interface ModalProps {
@@ -39,13 +13,31 @@ interface ModalProps {
 const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => {
   if (!isOpen) return null;
 
-  const claseRaza = obtenerClaseRaza(carta.raza);
-  const bordeRaza = obtenerEstiloRaza(carta.raza).claseBorde;
+  
+  const obtenerEstiloRaza = (raza: string) => { 
+    switch (raza) {
+        case 'Shinigami': return { claseBorde: 'border-red-600', claseTexto: 'text-red-400', fondoRaza: 'bg-red-900/30' };
+        case 'Quincy': return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400', fondoRaza: 'bg-blue-900/30' };
+        case 'Arrancar': return { claseBorde: 'border-gray-300', claseTexto: 'text-gray-300', fondoRaza: 'bg-gray-800/50' };
+        case 'Hollow': return { claseBorde: 'border-green-500', claseTexto: 'text-green-500', fondoRaza: 'bg-green-900/30' };
+        case 'Visored': return { claseBorde: 'border-yellow-500', claseTexto: 'text-yellow-400', fondoRaza: 'bg-yellow-900/30' };
+        case 'Humano': return { claseBorde: 'border-amber-600', claseTexto: 'text-amber-500', fondoRaza: 'bg-amber-900/30' };
+        default: return { claseBorde: 'border-gray-500', claseTexto: 'text-gray-500', fondoRaza: 'bg-gray-800/50' };
+    }
+  };
+
+  const estilos = obtenerEstiloRaza(carta.raza);
+  const claseRazaTexto = estilos.claseTexto;
+  const bordeRaza = estilos.claseBorde;
 
   return (
+    
     <div className="fixed inset-0 z-50 bg-black bg-opacity-90 flex justify-center items-center p-4">
+      
+      
       <div className={`bg-gray-900 border-4 ${bordeRaza} w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative`}>
         
+       
         <button
           onClick={onClose}
           className="absolute top-4 right-4 text-white text-3xl font-bold p-2 z-20 hover:text-red-600 transition-colors"
@@ -53,24 +45,16 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           &times;
         </button>
 
+       
         <div className="flex h-full">
           
-          {/* LADO DERECHO: Imagen en Grande */}
-          <div className="w-1/2 p-4 flex justify-center items-center bg-gray-950">
-            <img
-              src={carta.imagenUrl}
-              alt={carta.nombre}
-              className={`max-h-full w-auto object-contain rounded-lg border-2 ${bordeRaza}`}
-            />
-          </div>
-
-          {/* LADO IZQUIERDO: Información Vertical */}
+          
           <div className="w-1/2 p-8 overflow-y-auto text-white">
             
-            <h1 className={`text-5xl font-extrabold mb-2 uppercase ${claseRaza}`}>
+            <h1 className={`text-5xl font-extrabold mb-2 uppercase ${claseRazaTexto}`}>
               {carta.nombre}
             </h1>
-            <p className={`text-lg font-light tracking-widest uppercase mb-6 border-b pb-4 ${claseRaza}`}>
+            <p className={`text-lg font-light tracking-widest uppercase mb-6 border-b pb-4 ${claseRazaTexto}`}>
               Raza: {carta.raza} (ID: {carta.id.toString().padStart(3, '0')})
             </p>
 
@@ -95,6 +79,15 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
               </div>
             </div>
 
+          </div>
+
+          
+          <div className="w-1/2 p-4 flex justify-center items-center bg-gray-950">
+            <img
+              src={carta.imagenUrl}
+              alt={carta.nombre}
+              className={`max-h-full w-auto object-contain rounded-lg border-2 ${bordeRaza}`}
+            />
           </div>
         </div>
       </div>
