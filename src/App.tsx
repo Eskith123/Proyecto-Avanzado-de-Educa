@@ -5,7 +5,7 @@ import Carta from './componentes/ComponenteCarta';
 import ModalCartaDetalle from './componentes/ModalCartaDetalle';
 import FormularioCrearCarta from './componentes/FormularioCrearCarta'; 
 import FormularioEditarCarta from './componentes/FormularioEditarCarta'; 
-import type { CartaProps } from './tipos/Carta';
+import type { CartaProps } from './tipos/tiposCarta';
 
 
 

@@ -1,7 +1,7 @@
 
 
 import React from 'react';
-import type { CartaProps } from '../tipos/Carta';
+import type { CartaProps } from '../tipos/tiposCarta';
 
 
 const obtenerEstiloRaza = (raza: string) => { 
