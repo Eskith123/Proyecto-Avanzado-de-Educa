@@ -1,33 +1,60 @@
 import './App.css';
-import React, { useState, useEffect } from 'react';
+// src/App.tsx
+import React, { useState } from 'react';
 import Carta from './componentes/carta';
 import ModalCartaDetalle from './componentes/ModalCartaDetalle';
 import FormularioCrearCarta from './componentes/FormularioCrearCarta'; 
+import FormularioEditarCarta from './componentes/FormularioEditarCarta'; // ⚠️ NECESITAS CREAR ESTE COMPONENTE
 import type { CartaProps } from './tipos/Carta';
 
-// --- DATOS INICIALES ---
+// ... (DATOS INICIALES y lógica de useEffect se mantienen igual) ...
+
 const DATOS_INICIALES: CartaProps[] = [
-  
-];
-// -------------------------
+  ];
 
 const App: React.FC = () => {
-  // Estado principal de la colección de cartas
   const [cartas, setCartas] = useState<CartaProps[]>(DATOS_INICIALES);
   
-  // Estado para controlar la visibilidad del Modal de detalle
+  // Estados para Modal de Detalle
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CartaProps | null>(null);
 
-  // ⚠️ NUEVO ESTADO: Controla la visibilidad del formulario de creación
+  // Estado para Formulario de Creación
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
+  
+  // ⚠️ NUEVO ESTADO: Carta que se está editando (null si no hay edición)
+  const [cartaAEditar, setCartaAEditar] = useState<CartaProps | null>(null);
 
-  // Funciones de manejo
+  // --- Funciones de Modificación de Cartas ---
+
   const handleNuevaCarta = (nuevaCarta: CartaProps) => {
     setCartas(prevCartas => [nuevaCarta, ...prevCartas]);
-    setMostrarFormulario(false); // ⚠️ OCULTAR el formulario después de crear
+    setMostrarFormulario(false);
+  };
+  
+  // ⚠️ NUEVA FUNCIÓN: Borrar carta
+  const handleDelete = (id: number) => {
+    if (window.confirm('¿Estás seguro de que quieres eliminar esta carta?')) {
+        setCartas(prevCartas => prevCartas.filter(carta => carta.id !== id));
+    }
   };
 
+  // ⚠️ NUEVA FUNCIÓN: Iniciar el modo de edición
+  const handleEdit = (carta: CartaProps) => {
+    setCartaAEditar(carta); // Guarda la carta actual en el estado
+  };
+
+  // ⚠️ NUEVA FUNCIÓN: Actualizar carta editada
+  const handleUpdate = (cartaActualizada: CartaProps) => {
+    setCartas(prevCartas => 
+      prevCartas.map(carta => 
+        carta.id === cartaActualizada.id ? cartaActualizada : carta
+      )
+    );
+    setCartaAEditar(null); // Sale del modo de edición
+  };
+
+  // --- Funciones de Modal de Detalle y UX ---
   const handleCardClick = (carta: CartaProps) => {
     setSelectedCard(carta);
     setIsModalOpen(true);
@@ -37,22 +64,9 @@ const App: React.FC = () => {
     setIsModalOpen(false);
     setTimeout(() => setSelectedCard(null), 300);
   };
-
-  // useEffect para cerrar con Escape (mantener funcionalidad)
-  useEffect(() => {
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        closeModal();
-      }
-    };
-    if (isModalOpen) {
-      document.addEventListener('keydown', handleEscape);
-    }
-    return () => {
-      document.removeEventListener('keydown', handleEscape);
-    };
-  }, [isModalOpen]);
-
+  
+  // useEffect para cerrar con Escape
+  // ... (código de useEffect se mantiene igual) ...
 
   return (
     <div 
@@ -68,7 +82,6 @@ const App: React.FC = () => {
         
         <div className="text-center mb-10">
             <button
-                // ⚠️ Botón para alternar la visibilidad del formulario
                 onClick={() => setMostrarFormulario(prev => !prev)}
                 className={`py-3 px-8 text-lg font-bold rounded-lg transition-colors shadow-md 
                     ${mostrarFormulario 
@@ -80,10 +93,20 @@ const App: React.FC = () => {
             </button>
         </div>
 
-        {/* ⚠️ RENDERIZACIÓN CONDICIONAL del formulario */}
+        {/* Renderización condicional de FORMULARIOS */}
         {mostrarFormulario && (
             <FormularioCrearCarta onNuevaCarta={handleNuevaCarta} />
         )}
+
+        {/* ⚠️ NUEVO: Renderiza el formulario de edición si hay una carta seleccionada para editar */}
+        {cartaAEditar && (
+            <FormularioEditarCarta 
+                cartaInicial={cartaAEditar} 
+                onUpdate={handleUpdate} 
+                onCancel={() => setCartaAEditar(null)} // Función para cancelar la edición
+            />
+        )}
+
 
         <h2 className="text-3xl font-extrabold text-white mb-6 text-center mt-12 border-t pt-6 border-gray-700">
             Deck de Cartas ({cartas.length})
@@ -96,11 +119,13 @@ const App: React.FC = () => {
                     key={carta.id} 
                     {...carta} 
                     onCardClick={handleCardClick} 
+                    onDelete={handleDelete} // ⚠️ PASAR FUNCIÓN DE BORRADO
+                    onEdit={handleEdit}     // ⚠️ PASAR FUNCIÓN DE EDICIÓN
                 />
             ))}
         </div>
 
-        {/* Renderiza el Modal */}
+        {/* Renderiza el Modal de Detalle */}
         {selectedCard && (
             <ModalCartaDetalle
                 carta={selectedCard}

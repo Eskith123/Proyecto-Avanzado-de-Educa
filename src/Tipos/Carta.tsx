@@ -5,6 +5,6 @@ export interface CartaProps {
   ataque: number;
   defensa: number;
   vida: number;
-  raza: 'Shinigami' | 'Quincy' | 'Arrancar' | 'Humano' | 'Visored'; 
+  raza: 'Shinigami' | 'Quincy' | 'Arrancar' | 'Humano' | 'Visored' | 'Hollow' ; 
   imagenUrl: string; 
 }

@@ -1,79 +1,50 @@
-// src/componentes/FormularioCrearCarta.tsx
+// src/componentes/FormularioEditarCarta.tsx
 import React, { useState } from 'react';
-import type { CartaProps } from '../tipos/Carta'; // Importamos la interfaz
- // Importamos la interfaz
+import type { CartaProps } from '../tipos/Carta';
 
-// Lista de opciones para el campo 'raza'
 const RAZAS_DISPONIBLES: CartaProps['raza'][] = [
   'Shinigami', 'Quincy', 'Arrancar', 'Humano', 'Visored', 'Hollow'
 ];
 
-// Definimos la estructura de la prop del formulario
-interface FormularioProps {
-  onNuevaCarta: (carta: CartaProps) => void;
+interface FormularioEditarProps {
+  cartaInicial: CartaProps; // La carta que vamos a editar
+  onUpdate: (carta: CartaProps) => void;
+  onCancel: () => void; // Función para cerrar el formulario
 }
 
-const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
-  // Estado inicial del formulario (vacío o con valores predeterminados)
-  const [formData, setFormData] = useState<Omit<CartaProps, 'id'>>({
-    nombre: '',
-    descripcion: '',
-    ataque: 0,
-    defensa: 0,
-    vida: 0,
-    raza: 'Shinigami', // Valor predeterminado
-    imagenUrl: '',
-  });
+const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, onUpdate, onCancel }) => {
+  
+  // Usamos el estado inicial basado en la carta que se pasó
+  const [formData, setFormData] = useState<CartaProps>(cartaInicial);
 
-  // Función genérica para manejar los cambios en los campos
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
     setFormData(prevData => ({
       ...prevData,
-      // Convertir a número si el tipo es 'number', sino usar el valor directo
       [name]: type === 'number' ? parseInt(value) || 0 : value,
     }));
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Validación básica: asegura que al menos el nombre y la URL no estén vacíos
     if (!formData.nombre.trim() || !formData.imagenUrl.trim()) {
-      alert('Por favor, ingresa el nombre de la carta y la URL de la imagen.');
+      alert('Por favor, completa los campos requeridos.');
       return;
     }
-
-    // Crea un ID temporal (usarías un ID real de una base de datos en un entorno real)
-    const nuevaCarta: CartaProps = {
-      ...formData,
-      id: Date.now(), // ID único basado en el tiempo
-    };
-
-    onNuevaCarta(nuevaCarta);
-
-    // Resetea el formulario después del envío
-    setFormData({
-      nombre: '',
-      descripcion: '',
-      ataque: 0,
-      defensa: 0,
-      vida: 0,
-      raza: 'Shinigami',
-      imagenUrl: '',
-    });
+    
+    // Llama a la función de actualización en App.tsx con la carta modificada
+    onUpdate(formData);
   };
 
-  const InputClass = "w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:border-red-500 focus:ring focus:ring-red-500/50";
+  const InputClass = "w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:border-blue-500 focus:ring focus:ring-blue-500/50";
   const LabelClass = "block text-sm font-medium text-gray-300 mb-1";
-  const SectionTitleClass = "text-xl font-bold text-red-500 mb-4 border-b border-gray-700 pb-2";
+  const SectionTitleClass = "text-xl font-bold text-blue-500 mb-4 border-b border-gray-700 pb-2";
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-gray-900 border-2 border-red-800 rounded-xl shadow-2xl shadow-red-900/40 my-8">
+    <div className="max-w-xl mx-auto p-6 bg-gray-900 border-2 border-blue-800 rounded-xl shadow-2xl shadow-blue-900/40 my-8">
       <h2 className="text-3xl font-extrabold text-white mb-6 text-center">
-        Crear Nueva Carta
+        Editar Carta: {cartaInicial.nombre}
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -111,7 +82,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
         </div>
 
-        {/* Sección de Estadísticas */}
+        {/* Sección de Estadísticas (Ataque, Defensa, Vida) */}
         <div>
           <h3 className={SectionTitleClass}>Estadísticas</h3>
           <div className="grid grid-cols-3 gap-4">
@@ -123,7 +94,8 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
                   name={stat}
                   type="number"
                   min="0"
-                  value={formData[stat as keyof Omit<CartaProps, 'id'>]}
+                  // Esta conversión es necesaria para tipado
+                  value={formData[stat as keyof CartaProps]}
                   onChange={handleChange}
                   className={InputClass}
                   required
@@ -132,7 +104,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
             ))}
           </div>
         </div>
-
+        
         {/* Sección de Contenido */}
         <div>
           <h3 className={SectionTitleClass}>Contenido y Multimedia</h3>
@@ -163,13 +135,20 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
         </div>
 
-        {/* Botón de Enviar */}
-        <div className="pt-4">
+        {/* Botones de Acción (Guardar y Cancelar) */}
+        <div className="pt-4 flex justify-end space-x-4">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="py-2 px-6 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg transition-colors"
+          >
+            Cancelar
+          </button>
           <button
             type="submit"
-            className="w-full py-3 bg-red-600 hover:bg-red-700 text-white font-bold rounded-lg transition-colors shadow-md shadow-red-900/50"
+            className="py-2 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shadow-md shadow-blue-900/50"
           >
-            Añadir Carta al Deck
+            Guardar Cambios
           </button>
         </div>
       </form>
@@ -177,4 +156,4 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
   );
 };
 
-export default FormularioCrearCarta;
+export default FormularioEditarCarta;
