@@ -1,60 +1,53 @@
-// src/componentes/FormularioCrearCarta.tsx
-import React, { useState } from 'react';
-import type { CartaProps } from '../tipos/Carta'; // Importamos la interfaz
- // Importamos la interfaz
 
-// Lista de opciones para el campo 'raza'
+import React, { useState } from 'react';
+import type { CartaProps } from '../tipos/Carta'; 
+
 const RAZAS_DISPONIBLES: CartaProps['raza'][] = [
   'Shinigami', 'Quincy', 'Arrancar', 'Humano', 'Visored', 'Hollow'
 ];
 
-// Definimos la estructura de la prop del formulario
 interface FormularioProps {
   onNuevaCarta: (carta: CartaProps) => void;
 }
 
 const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
-  // Estado inicial del formulario (vacío o con valores predeterminados)
   const [formData, setFormData] = useState<Omit<CartaProps, 'id'>>({
     nombre: '',
     descripcion: '',
     ataque: 0,
     defensa: 0,
     vida: 0,
-    raza: 'Shinigami', // Valor predeterminado
+    raza: 'Shinigami', 
     imagenUrl: '',
   });
 
-  // Función genérica para manejar los cambios en los campos
+  
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
     
     setFormData(prevData => ({
       ...prevData,
-      // Convertir a número si el tipo es 'number', sino usar el valor directo
+      
       [name]: type === 'number' ? parseInt(value) || 0 : value,
     }));
   };
 
-  // Función para manejar el envío del formulario
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación básica: asegura que al menos el nombre y la URL no estén vacíos
     if (!formData.nombre.trim() || !formData.imagenUrl.trim()) {
       alert('Por favor, ingresa el nombre de la carta y la URL de la imagen.');
       return;
     }
 
-    // Crea un ID temporal (usarías un ID real de una base de datos en un entorno real)
     const nuevaCarta: CartaProps = {
       ...formData,
-      id: Date.now(), // ID único basado en el tiempo
+      id: Date.now(), 
     };
 
     onNuevaCarta(nuevaCarta);
 
-    // Resetea el formulario después del envío
     setFormData({
       nombre: '',
       descripcion: '',
@@ -77,7 +70,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Sección de Identificación */}
+       
         <div>
           <h3 className={SectionTitleClass}>Información Básica</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -111,7 +104,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
         </div>
 
-        {/* Sección de Estadísticas */}
+       
         <div>
           <h3 className={SectionTitleClass}>Estadísticas</h3>
           <div className="grid grid-cols-3 gap-4">
@@ -133,7 +126,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
         </div>
 
-        {/* Sección de Contenido */}
+       
         <div>
           <h3 className={SectionTitleClass}>Contenido y Multimedia</h3>
           <div className="space-y-4">
@@ -163,7 +156,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
         </div>
 
-        {/* Botón de Enviar */}
+       
         <div className="pt-4">
           <button
             type="submit"

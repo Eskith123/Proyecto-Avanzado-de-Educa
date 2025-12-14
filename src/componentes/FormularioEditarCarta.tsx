@@ -1,4 +1,4 @@
-// src/componentes/FormularioEditarCarta.tsx
+
 import React, { useState } from 'react';
 import type { CartaProps } from '../tipos/Carta';
 
@@ -7,14 +7,14 @@ const RAZAS_DISPONIBLES: CartaProps['raza'][] = [
 ];
 
 interface FormularioEditarProps {
-  cartaInicial: CartaProps; // La carta que vamos a editar
+  cartaInicial: CartaProps;
   onUpdate: (carta: CartaProps) => void;
-  onCancel: () => void; // Función para cerrar el formulario
+  onCancel: () => void; 
 }
 
 const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, onUpdate, onCancel }) => {
   
-  // Usamos el estado inicial basado en la carta que se pasó
+
   const [formData, setFormData] = useState<CartaProps>(cartaInicial);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -33,7 +33,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
       return;
     }
     
-    // Llama a la función de actualización en App.tsx con la carta modificada
+   
     onUpdate(formData);
   };
 
@@ -48,7 +48,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Sección de Identificación */}
+       
         <div>
           <h3 className={SectionTitleClass}>Información Básica</h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -82,7 +82,6 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
           </div>
         </div>
 
-        {/* Sección de Estadísticas (Ataque, Defensa, Vida) */}
         <div>
           <h3 className={SectionTitleClass}>Estadísticas</h3>
           <div className="grid grid-cols-3 gap-4">
@@ -94,7 +93,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
                   name={stat}
                   type="number"
                   min="0"
-                  // Esta conversión es necesaria para tipado
+                 
                   value={formData[stat as keyof CartaProps]}
                   onChange={handleChange}
                   className={InputClass}
@@ -104,8 +103,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
             ))}
           </div>
         </div>
-        
-        {/* Sección de Contenido */}
+   
         <div>
           <h3 className={SectionTitleClass}>Contenido y Multimedia</h3>
           <div className="space-y-4">
@@ -135,7 +133,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
           </div>
         </div>
 
-        {/* Botones de Acción (Guardar y Cancelar) */}
+        
         <div className="pt-4 flex justify-end space-x-4">
           <button
             type="button"

@@ -1,8 +1,7 @@
-// src/componentes/Carta.tsx
+
 import React from 'react';
 import type { CartaProps } from '../tipos/Carta';
 
-// ⚠️ IMPORTANTE: La función obtenerEstiloRaza debe estar definida aquí (copia del punto 2 anterior).
 const obtenerEstiloRaza = (raza: string) => { 
     switch (raza) {
         case 'Shinigami': return { claseBorde: 'border-red-600', claseTexto: 'text-red-400', fondoRaza: 'bg-red-900/30' };
@@ -14,23 +13,20 @@ const obtenerEstiloRaza = (raza: string) => {
     }
 };
 
-// Interfaz que incluye las funciones de click, borrar y editar
 interface CartaDisplayProps extends CartaProps {
     onCardClick: (carta: CartaProps) => void;
-    onDelete: (id: number) => void;    // ⚠️ NUEVO: Función para borrar
-    onEdit: (carta: CartaProps) => void;     // ⚠️ NUEVO: Función para editar
+    onDelete: (id: number) => void;    
+    onEdit: (carta: CartaProps) => void;     
 }
 
 const Carta: React.FC<CartaDisplayProps> = (props) => {
     const { claseBorde } = obtenerEstiloRaza(props.raza);
 
-    // Evita que el click en los botones active el onCardClick del contenedor
     const handleButtonClick = (e: React.MouseEvent) => {
         e.stopPropagation(); 
     };
 
     return (
-        // El contenedor principal activa la vista de detalle
         <div
             onClick={() => props.onCardClick(props)}
             className={`max-w-72 w-full rounded-xl overflow-hidden shadow-2xl m-3
@@ -41,10 +37,10 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
         >
             <div className="absolute inset-0 bg-linear-to-t from-gray-950/90 to-transparent z-0"></div>
 
-            {/* ZONA DE BOTONES DE ACCIÓN */}
+           
             <div className="absolute top-2 right-2 z-20 flex space-x-2">
                 
-                {/* Botón Editar */}
+             
                 <button
                     onClick={(e) => { handleButtonClick(e); props.onEdit(props); }}
                     className="p-2 bg-blue-600/70 hover:bg-blue-600 rounded-full text-white transition-colors"
@@ -55,7 +51,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
                     </svg>
                 </button>
                 
-                {/* Botón Borrar */}
+              
                 <button
                     onClick={(e) => { handleButtonClick(e); props.onDelete(props.id); }}
                     className="p-2 bg-red-600/70 hover:bg-red-700 rounded-full text-white transition-colors"
@@ -67,7 +63,6 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
                 </button>
             </div>
 
-            {/* ... (El resto del contenido de la carta sigue igual) ... */}
             <img
                 className="w-full h-48 object-cover rounded-t-lg opacity-80"
                 src={props.imagenUrl}
@@ -80,7 +75,6 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
                         {props.nombre}
                     </h2>
                 </div>
-                {/* Stats resumidos */}
                 <div className="flex justify-around text-center mt-3">
                     <span className="text-lg font-extrabold text-red-600">{props.ataque}</span>
                     <span className="text-lg font-extrabold text-blue-500">{props.defensa}</span>
