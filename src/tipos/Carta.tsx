@@ -5,6 +5,6 @@ export interface CartaProps {
   ataque: number;
   defensa: number;
   vida: number;
-  raza: 'Shinigami' | 'Quincy' | 'Arrancar' | 'Humano' | 'Visored'; // Ejemplo de unión de tipos para 'raza'
-  imagenUrl: string; // URL para la imagen de la carta
+  raza: 'Shinigami' | 'Quincy' | 'Arrancar' | 'Humano' | 'Visored'; 
+  imagenUrl: string; 
 }
