@@ -1,16 +1,16 @@
-
+// src/componentes/Carta.tsx
 import React from 'react';
 import type { CartaProps } from '../tipos/Carta';
 
-
+// ⚠️ IMPORTANTE: COPIA la función 'obtenerEstiloRaza' aquí.
 
 interface CartaDisplayProps extends CartaProps {
     onCardClick: (carta: CartaProps) => void;
 }
 
 const Carta: React.FC<CartaDisplayProps> = (props) => {
-    
-    const obtenerEstiloRaza = (raza: string) => { 
+    // Definición local de obtenerEstiloRaza (copia del punto 2)
+    const obtenerEstiloRaza = (raza: string) => { /* ... (código del punto 2) ... */ 
         switch (raza) {
             case 'Shinigami': return { claseBorde: 'border-red-600', claseTexto: 'text-red-400', fondoRaza: 'bg-red-900/30' };
             case 'Quincy': return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400', fondoRaza: 'bg-blue-900/30' };
@@ -62,4 +62,4 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
     );
 };
 
-export default Carta;
+export default Carta;44

@@ -1,7 +1,4 @@
-import './App.css'
-
-
-// src/App.tsx
+import './App.css';
 import React, { useState, useEffect } from 'react';
 import Carta from './componentes/carta';
 import ModalCartaDetalle from './componentes/ModalCartaDetalle';
@@ -11,7 +8,7 @@ import type { CartaProps } from './tipos/Carta';
 // --- DATOS INICIALES ---
 const DATOS_INICIALES: CartaProps[] = [
   
-  ];
+];
 // -------------------------
 
 const App: React.FC = () => {
