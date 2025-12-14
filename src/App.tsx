@@ -1,7 +1,7 @@
 import './App.css';
 
 import React, { useState } from 'react';
-import Carta from './componentes/carta';
+import Carta from './componentes/ComponenteCarta';
 import ModalCartaDetalle from './componentes/ModalCartaDetalle';
 import FormularioCrearCarta from './componentes/FormularioCrearCarta'; 
 import FormularioEditarCarta from './componentes/FormularioEditarCarta'; 
