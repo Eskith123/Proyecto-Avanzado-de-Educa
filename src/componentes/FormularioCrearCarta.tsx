@@ -7,10 +7,10 @@ interface FormularioProps {
 }
 
 const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
-  // 1. Estado para el mensaje de error
+ 
   const [error, setError] = useState<string | null>(null);
 
-  // 2. Estado inicial del formulario
+ 
   const [formData, setFormData] = useState<Omit<CartaProps, 'id'>>({
     nombre: '',
     descripcion: '',
@@ -21,9 +21,9 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     imagenUrl: '',
   });
 
-  // Manejador de cambios en los inputs
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    // Limpiamos el error en cuanto el usuario empieza a escribir
+  
     if (error) setError(null);
 
     const { name, value, type } = e.target;
@@ -33,11 +33,11 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     }));
   };
 
-  // 3. Lógica de Validación completa
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // Validación de texto
+  
     if (!formData.nombre.trim()) {
       setError("⚠️ El nombre es obligatorio. ¿Quién es este guerrero?");
       return;
@@ -47,7 +47,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       return;
     }
 
-    // Validación de estadísticas (Mayores a 0)
+  
     if (formData.ataque <= 0) {
       setError("⚠️ El ataque debe ser mayor a 0. ¡Necesita poder ofensivo!");
       return;
@@ -61,37 +61,37 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       return;
     }
 
-    // Validación de imagen
+  
     if (!formData.imagenUrl.trim()) {
       setError("⚠️ La URL de la imagen es obligatoria.");
       return;
     }
 
-    // Si todo está correcto, creamos la carta
+  
     onNuevaCarta({ ...formData, id: Date.now() });
     
-    // Limpiamos el formulario y errores
+  
     setError(null);
     setFormData({
       nombre: '', descripcion: '', ataque: 0, defensa: 0, vida: 0, raza: 'Shinigami', imagenUrl: '',
     });
   };
 
-  // Clases de Tailwind para ahorrar código
+
   const labelClass = "text-xs font-bold text-gray-400 uppercase mb-1 block";
   const inputClass = "w-full p-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none transition-all";
   const errorInputClass = "border-red-500 ring-1 ring-red-500";
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-gray-900 border-2 border-red-900 rounded-2xl shadow-2xl my-10 relative overflow-hidden">
-      {/* Decoración de fondo */}
+    
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-red-600/10 rounded-full blur-3xl"></div>
       
       <h2 className="text-3xl font-black text-white mb-8 text-center tracking-tighter uppercase italic">
         Forjar Nueva Carta de <span className="text-red-600">Batalla</span>
       </h2>
       
-      {/* 4. Alerta de Error Animada */}
+     
       {error && (
         <div className="bg-red-600/15 border-l-4 border-red-600 text-red-400 p-4 rounded mb-6 animate-pulse font-medium text-sm">
           {error}
@@ -99,7 +99,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       )}
 
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Nombre */}
+        
         <div className="md:col-span-1">
           <label className={labelClass}>Nombre del Personaje</label>
           <input 
@@ -111,7 +111,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           />
         </div>
 
-        {/* Raza */}
+      
         <div className="md:col-span-1">
           <label className={labelClass}>Raza / Facción</label>
           <select name="raza" value={formData.raza} onChange={handleChange} className={inputClass}>
@@ -124,7 +124,6 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </select>
         </div>
 
-        {/* Descripción */}
         <div className="md:col-span-2">
           <label className={labelClass}>Descripción y Habilidades</label>
           <textarea 
@@ -137,7 +136,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           />
         </div>
 
-        {/* Estadísticas */}
+        
         <div className="md:col-span-2 grid grid-cols-3 gap-4 bg-black/30 p-4 rounded-xl border border-gray-800">
           <div>
             <label className="text-[10px] font-black text-red-500 uppercase">Ataque</label>
@@ -171,7 +170,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
         </div>
 
-        {/* URL Imagen */}
+        
         <div className="md:col-span-2">
           <label className={labelClass}>URL de la Imagen (Portrait)</label>
           <input 
@@ -183,7 +182,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           />
         </div>
 
-        {/* Botón de envío */}
+     
         <div className="md:col-span-2 pt-4">
           <button 
             type="submit" 
