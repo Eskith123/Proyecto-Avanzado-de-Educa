@@ -28,7 +28,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.nombre.trim() || !formData.imagenUrl.trim()) {
+    if (!formData.name.trim() || !formData.pinctureUrl.trim()) {
       alert('Por favor, completa los campos requeridos.');
       return;
     }
@@ -44,7 +44,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
   return (
     <div className="max-w-xl mx-auto p-6 bg-gray-900 border-2 border-blue-800 rounded-xl shadow-2xl shadow-blue-900/40 my-8">
       <h2 className="text-3xl font-extrabold text-white mb-6 text-center">
-        Editar Carta: {cartaInicial.nombre}
+        Editar Carta: {cartaInicial.name}
       </h2>
       
       <form onSubmit={handleSubmit} className="space-y-6">
@@ -58,7 +58,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
                 id="nombre"
                 name="nombre"
                 type="text"
-                value={formData.nombre}
+                value={formData.name}
                 onChange={handleChange}
                 className={InputClass}
                 required
@@ -113,7 +113,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
                 id="imagenUrl"
                 name="imagenUrl"
                 type="url"
-                value={formData.imagenUrl}
+                value={formData.pinctureUrl}
                 onChange={handleChange}
                 className={InputClass}
                 required
@@ -125,7 +125,7 @@ const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, 
                 id="descripcion"
                 name="descripcion"
                 rows={3}
-                value={formData.descripcion}
+                value={formData.description}
                 onChange={handleChange}
                 className={`${InputClass} resize-none`}
               />

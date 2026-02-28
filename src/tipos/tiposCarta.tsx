@@ -1,10 +1,12 @@
 export interface CartaProps {
+  [x: string]: any;
   id: number;
-  nombre: string;
-  descripcion: string;
-  ataque: number;
-  defensa: number;
-  vida: number;
+  idCard: number;
+  name: string;
+  description: string;
+  attack: number;
+  defense: number;
+  lifepoint: number;
   raza: 'Shinigami' | 'Quincy' | 'Arrancar' | 'Humano' | 'Visored' | 'Hollow' ; 
-  imagenUrl: string; 
+  pinctureUrl: string; 
 }

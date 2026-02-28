@@ -1,16 +1,18 @@
 import './App.css';
 
-
 import React, { useState, useEffect } from 'react';
-import Carta from './componentes/ComponenteCarta';
 import ModalCartaDetalle from './componentes/ModalCartaDetalle';
 import FormularioCrearCarta from './componentes/FormularioCrearCarta'; 
 import FormularioEditarCarta from './componentes/FormularioEditarCarta';
 import ConfirmacionBorrado from './componentes/ConfirmacionBorrado'; 
+import MazoCartas from './componentes/MazoDeCartas'; 
 import type { CartaProps } from './tipos/tiposCarta';
 
 const DATOS_INICIALES: CartaProps[] = [
-  { id: 1, nombre: 'Ichigo K.', descripcion: 'Sustituto de Shinigami.', ataque: 95, defensa: 80, vida: 100, raza: 'Shinigami', imagenUrl: 'https://tse3.mm.bing.net/th/id/OIP.0ztng8mHFhP-gMNCt2G5hwHaF4?rs=1&pid=ImgDetMain&o=7&rm=3' },
+  {
+    id: 1, name: 'Ichigo K.', description: 'Sustituto de Shinigami.', attack: 95, defense: 80, lifepoint: 100, raza: 'Shinigami', pinctureUrl: 'https://tse3.mm.bing.net/th/id/OIP.0ztng8mHFhP-gMNCt2G5hwHaF4?rs=1&pid=ImgDetMain&o=7&rm=3',
+    idCard: 0
+  },
 ];
 
 const App: React.FC = () => {
@@ -19,8 +21,6 @@ const App: React.FC = () => {
   const [selectedCard, setSelectedCard] = useState<CartaProps | null>(null);
   const [mostrarFormulario, setMostrarFormulario] = useState(false);
   const [cartaAEditar, setCartaAEditar] = useState<CartaProps | null>(null);
-
- 
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const [idParaBorrar, setIdParaBorrar] = useState<number | null>(null);
 
@@ -34,9 +34,7 @@ const App: React.FC = () => {
   }, []); 
 
   useEffect(() => {
-    if (cartas.length >= 0) { 
-      localStorage.setItem('mis_cartas_bleach', JSON.stringify(cartas));
-    }
+    localStorage.setItem('mis_cartas_bleach', JSON.stringify(cartas));
   }, [cartas]); 
 
   const handleNuevaCarta = (nuevaCarta: CartaProps) => {
@@ -44,13 +42,11 @@ const App: React.FC = () => {
     setMostrarFormulario(false);
   };
 
-  
   const prepararBorrado = (id: number) => {
     setIdParaBorrar(id);        
     setMostrarConfirmacion(true);
   };
 
-  
   const ejecutarBorradoFinal = () => {
     if (idParaBorrar !== null) {
       const nuevasCartas = cartas.filter(carta => carta.id !== idParaBorrar);
@@ -97,19 +93,14 @@ const App: React.FC = () => {
             />
         )}
 
-        <div className="flex flex-wrap justify-center gap-6 mt-12">
-            {cartas.map((carta) => (
-                <Carta 
-                    key={carta.id} 
-                    {...carta} 
-                    onCardClick={(c) => { setSelectedCard(c); setIsModalOpen(true); }}
-                    onDelete={() => prepararBorrado(carta.id)} // 5. LLAMAMOS AL NUEVO PASO
-                    onEdit={(c) => setCartaAEditar(c)}
-                />
-            ))}
-        </div>
+        {/* 2. USAMOS EL COMPONENTE MAZO AQUÍ */}
+        <MazoCartas 
+          cartas={cartas}
+          onCardClick={(c: React.SetStateAction<CartaProps | null>) => { setSelectedCard(c); setIsModalOpen(true); }}
+          onDelete={prepararBorrado}
+          onEdit={(c: React.SetStateAction<CartaProps | null>) => setCartaAEditar(c)}
+        />
 
-       
         <ConfirmacionBorrado 
           abierto={mostrarConfirmacion}
           onConfirmar={ejecutarBorradoFinal}

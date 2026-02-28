@@ -51,7 +51,7 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           <div className="w-1/2 p-8 overflow-y-auto text-white">
             
             <h1 className={`text-5xl font-extrabold mb-2 uppercase ${claseRazaTexto}`}>
-              {carta.nombre}
+              {carta.name}
             </h1>
             <p className={`text-lg font-light tracking-widest uppercase mb-6 border-b pb-4 ${claseRazaTexto}`}>
               Raza: {carta.raza} (ID: {carta.id.toString().padStart(3, '0')})
@@ -60,7 +60,7 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           
             <h3 className="text-xl font-semibold mt-4 mb-2 text-red-400">Descripción:</h3>
             <p className="text-gray-300 text-base leading-relaxed italic mb-8">
-              {carta.descripcion}
+              {carta.description}
             </p>
 
            
@@ -68,15 +68,15 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
             <div className="space-y-4">
               <div className="flex justify-between items-center border-b border-gray-800 pb-2">
                 <span className="text-gray-400 uppercase tracking-widest">ATAQUE</span>
-                <span className="text-3xl font-extrabold text-red-600">{carta.ataque}</span>
+                <span className="text-3xl font-extrabold text-red-600">{carta.attack}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-800 pb-2">
                 <span className="text-gray-400 uppercase tracking-widest">DEFENSA</span>
-                <span className="text-3xl font-extrabold text-blue-500">{carta.defensa}</span>
+                <span className="text-3xl font-extrabold text-blue-500">{carta.defense}</span>
               </div>
               <div className="flex justify-between items-center border-b border-gray-800 pb-2">
                 <span className="text-gray-400 uppercase tracking-widest">VIDA</span>
-                <span className="text-3xl font-extrabold text-green-500">{carta.vida}</span>
+                <span className="text-3xl font-extrabold text-green-500">{carta.lifepoint}</span>
               </div>
             </div>
 
@@ -85,8 +85,8 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
 
           <div className="w-1/2 p-4 flex justify-center items-center bg-gray-950">
             <img
-              src={carta.imagenUrl}
-              alt={carta.nombre}
+              src={carta.pinctureUrl}
+              alt={carta.name}
               
               className={`max-h-full w-auto object-contain rounded-lg border-2 ${bordeRaza}`}
             />

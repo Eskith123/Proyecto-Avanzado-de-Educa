@@ -68,7 +68,17 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     }
 
   
-    onNuevaCarta({ ...formData, id: Date.now() });
+    onNuevaCarta({
+      ...formData, idCard: Date.now(),
+      id: 0,
+      name: '',
+      description: '',
+      attack: 0,
+      defense: 0,
+      lifepoint: 0,
+      raza: 'Shinigami',
+      pinctureUrl: ''
+    });
     
   
     setError(null);
