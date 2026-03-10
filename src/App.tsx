@@ -93,7 +93,7 @@ const App: React.FC = () => {
             />
         )}
 
-        {/* 2. USAMOS EL COMPONENTE MAZO AQUÍ */}
+        
         <MazoCartas 
           cartas={cartas}
           onCardClick={(c: React.SetStateAction<CartaProps | null>) => { setSelectedCard(c); setIsModalOpen(true); }}
