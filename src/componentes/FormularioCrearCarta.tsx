@@ -7,122 +7,75 @@ interface FormularioProps {
 }
 
 const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
- 
   const [error, setError] = useState<string | null>(null);
 
  
-  const [formData, setFormData] = useState<Omit<CartaProps, 'id'>>({
-    nombre: '',
-    descripcion: '',
-    ataque: 0,
-    defensa: 0,
-    vida: 0,
-    raza: 'Shinigami',
-    imagenUrl: '',
+  const [formData, setFormData] = useState({
+    name: '',
+    description: '',
+    attack: 0,
+    defense: 0,
+    lifepoint: 0,
+    raza: 'Shinigami' as CartaProps['raza'],
+    pinctureUrl: '',
   });
 
-
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-  
     if (error) setError(null);
-
     const { name, value, type } = e.target;
     setFormData(prev => ({
       ...prev,
-      [name]: type === 'number' ? parseInt(value) || 0 : value,
+      [name]: type === 'number' ? (parseInt(value) || 0) : value,
     }));
   };
 
-  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
-  
-    if (!formData.nombre.trim()) {
-      setError("⚠️ El nombre es obligatorio. ¿Quién es este guerrero?");
+    if (!formData.name.trim() || !formData.pinctureUrl.trim()) {
+      setError("⚠️ Nombre y URL de imagen son obligatorios para forjar la carta.");
       return;
     }
-    if (!formData.descripcion.trim()) {
-      setError("⚠️ La descripción es necesaria para conocer su historia.");
-      return;
-    }
-
-  
-    if (formData.ataque <= 0) {
-      setError("⚠️ El ataque debe ser mayor a 0. ¡Necesita poder ofensivo!");
-      return;
-    }
-    if (formData.defensa <= 0) {
-      setError("⚠️ La defensa debe ser mayor a 0. ¡Debe poder protegerse!");
-      return;
-    }
-    if (formData.vida <= 0) {
-      setError("⚠️ La vida debe ser mayor a 0. ¡No puede nacer derrotado!");
+    if (formData.attack <= 0 || formData.defense <= 0 || formData.lifepoint <= 0) {
+      setError("⚠️ ¡Las estadísticas deben ser superiores a 0 para el Gotei 13!");
       return;
     }
 
-  
-    if (!formData.imagenUrl.trim()) {
-      setError("⚠️ La URL de la imagen es obligatoria.");
-      return;
-    }
-
-  
     onNuevaCarta({
-      ...formData, idCard: Date.now(),
-      id: 0,
-      name: '',
-      description: '',
-      attack: 0,
-      defense: 0,
-      lifepoint: 0,
-      raza: 'Shinigami',
-      pinctureUrl: ''
+      ...formData,
+      id: Date.now(),
+      idCard: Date.now(),
     });
-    
-  
-    setError(null);
-    setFormData({
-      nombre: '', descripcion: '', ataque: 0, defensa: 0, vida: 0, raza: 'Shinigami', imagenUrl: '',
-    });
+
+    setFormData({ name: '', description: '', attack: 0, defense: 0, lifepoint: 0, raza: 'Shinigami', pinctureUrl: '' });
   };
 
-
-  const labelClass = "text-xs font-bold text-gray-400 uppercase mb-1 block";
-  const inputClass = "w-full p-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none transition-all";
-  const errorInputClass = "border-red-500 ring-1 ring-red-500";
+  const labelClass = "text-xs font-bold text-gray-400 uppercase mb-1 block tracking-wider";
+  const inputClass = "w-full p-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white placeholder-gray-600 focus:border-red-600 focus:ring-1 focus:ring-red-600 outline-none transition-all";
 
   return (
-    <div className="max-w-2xl mx-auto p-8 bg-gray-900 border-2 border-red-900 rounded-2xl shadow-2xl my-10 relative overflow-hidden">
-    
+    <div className="max-w-2xl mx-auto p-8 bg-gray-900 border-2 border-red-900 rounded-2xl shadow-2xl shadow-red-950/20 mb-10 relative overflow-hidden">
+      
+      
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-red-600/10 rounded-full blur-3xl"></div>
       
       <h2 className="text-3xl font-black text-white mb-8 text-center tracking-tighter uppercase italic">
-        Forjar Nueva Carta de <span className="text-red-600">Batalla</span>
+        Forjar Carta de <span className="text-red-600">Batalla</span>
       </h2>
       
-     
       {error && (
-        <div className="bg-red-600/15 border-l-4 border-red-600 text-red-400 p-4 rounded mb-6 animate-pulse font-medium text-sm">
+        <div className="bg-red-900/40 border-l-4 border-red-600 text-red-300 p-4 rounded-lg mb-6 text-sm font-medium">
           {error}
         </div>
       )}
 
-      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
         
-        <div className="md:col-span-1">
+        <div>
           <label className={labelClass}>Nombre del Personaje</label>
-          <input 
-            name="nombre" 
-            value={formData.nombre} 
-            onChange={handleChange} 
-            placeholder="Ej: Kenpachi Zaraki"
-            className={`${inputClass} ${error && !formData.nombre ? errorInputClass : ''}`}
-          />
+          <input name="name" value={formData.name} onChange={handleChange} placeholder="Ej: Kenpachi Zaraki" className={inputClass} />
         </div>
 
-      
-        <div className="md:col-span-1">
+        <div>
           <label className={labelClass}>Raza / Facción</label>
           <select name="raza" value={formData.raza} onChange={handleChange} className={inputClass}>
             <option value="Shinigami">Shinigami</option>
@@ -130,77 +83,38 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
             <option value="Arrancar">Arrancar</option>
             <option value="Visored">Visored</option>
             <option value="Hollow">Hollow</option>
-            <option value="Humano">Humano</option>
           </select>
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelClass}>Descripción y Habilidades</label>
-          <textarea 
-            name="descripcion" 
-            value={formData.descripcion} 
-            onChange={handleChange} 
-            rows={3}
-            placeholder="Describe su Bankai o sus poderes únicos..."
-            className={`${inputClass} resize-none ${error && !formData.descripcion ? errorInputClass : ''}`}
-          />
+          <label className={labelClass}>Descripción y Poderes (Bankai)</label>
+          <textarea name="description" value={formData.description} onChange={handleChange} rows={3} placeholder="Describe su poder espiritual único..." className={`${inputClass} resize-none`} />
         </div>
 
-        
+       
         <div className="md:col-span-2 grid grid-cols-3 gap-4 bg-black/30 p-4 rounded-xl border border-gray-800">
           <div>
-            <label className="text-[10px] font-black text-red-500 uppercase">Ataque</label>
-            <input 
-              type="number" 
-              name="ataque" 
-              value={formData.ataque} 
-              onChange={handleChange} 
-              className={`${inputClass} text-center font-bold ${error && formData.ataque <= 0 ? errorInputClass : ''}`}
-            />
+            <label className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-1 block">Ataque</label>
+            <input type="number" name="attack" value={formData.attack} onChange={handleChange} className={`${inputClass} text-center text-xl font-black`} />
           </div>
           <div>
-            <label className="text-[10px] font-black text-blue-500 uppercase">Defensa</label>
-            <input 
-              type="number" 
-              name="defensa" 
-              value={formData.defensa} 
-              onChange={handleChange} 
-              className={`${inputClass} text-center font-bold ${error && formData.defensa <= 0 ? errorInputClass : ''}`}
-            />
+            <label className="text-[10px] font-black text-blue-500 uppercase tracking-widest mb-1 block">Defensa</label>
+            <input type="number" name="defense" value={formData.defense} onChange={handleChange} className={`${inputClass} text-center text-xl font-black`} />
           </div>
           <div>
-            <label className="text-[10px] font-black text-green-500 uppercase">Vida</label>
-            <input 
-              type="number" 
-              name="vida" 
-              value={formData.vida} 
-              onChange={handleChange} 
-              className={`${inputClass} text-center font-bold ${error && formData.vida <= 0 ? errorInputClass : ''}`}
-            />
+            <label className="text-[10px] font-black text-green-500 uppercase tracking-widest mb-1 block">Vida</label>
+            <input type="number" name="lifepoint" value={formData.lifepoint} onChange={handleChange} className={`${inputClass} text-center text-xl font-black`} />
           </div>
         </div>
 
-        
         <div className="md:col-span-2">
-          <label className={labelClass}>URL de la Imagen (Portrait)</label>
-          <input 
-            name="imagenUrl" 
-            value={formData.imagenUrl} 
-            onChange={handleChange} 
-            placeholder="https://link-a-tu-imagen.jpg"
-            className={`${inputClass} ${error && !formData.imagenUrl ? errorInputClass : ''}`}
-          />
+          <label className={labelClass}>URL de la Imagen (Retrato)</label>
+          <input name="pinctureUrl" value={formData.pinctureUrl} onChange={handleChange} placeholder="https://link-a-imagen-Portrait.webp" className={inputClass} />
         </div>
 
-     
-        <div className="md:col-span-2 pt-4">
-          <button 
-            type="submit" 
-            className="w-full py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl transition-all shadow-xl shadow-red-900/20 active:scale-[0.98] uppercase tracking-widest"
-          >
-            Añadir al Deck del Gotei 13
-          </button>
-        </div>
+        <button type="submit" className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">
+          Forjar Carta del Seireitei
+        </button>
       </form>
     </div>
   );

@@ -1,5 +1,5 @@
 import React from 'react';
-import Carta from './ComponenteCarta';
+import Carta from './ComponenteCarta'; 
 import type { CartaProps } from '../tipos/tiposCarta';
 
 interface MazoProps {
@@ -9,19 +9,19 @@ interface MazoProps {
   onEdit: (carta: CartaProps) => void;
 }
 
-const MazoCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEdit }) => {
+const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEdit }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-6 mt-12">
+    <div className="flex flex-wrap justify-center gap-6 p-4">
       {cartas.length === 0 ? (
-        <p className="text-gray-500 italic mt-10">No hay cartas en el mazo...</p>
+        <p className="text-gray-500 mt-10 italic">No hay cartas en el mazo del Gotei 13...</p>
       ) : (
         cartas.map((carta) => (
           <Carta 
-            key={carta.id} 
+            key={carta.id}
             {...carta} 
-            onCardClick={() => onCardClick(carta)}
-            onDelete={() => onDelete(carta.id)}
-            onEdit={() => onEdit(carta)}
+            onCardClick={onCardClick}
+            onDelete={onDelete}
+            onEdit={onEdit}
           />
         ))
       )}
@@ -29,6 +29,4 @@ const MazoCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEdit
   );
 };
 
-
-
-export default MazoCartas;
+export default MazoDeCartas;

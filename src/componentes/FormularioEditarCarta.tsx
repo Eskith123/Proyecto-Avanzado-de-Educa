@@ -1,152 +1,84 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import type { CartaProps } from '../tipos/tiposCarta';
 
-const RAZAS_DISPONIBLES: CartaProps['raza'][] = [
-  'Shinigami', 'Quincy', 'Arrancar', 'Humano', 'Visored', 'Hollow'
-];
-
-interface FormularioEditarProps {
-  cartaInicial: CartaProps;
-  onUpdate: (carta: CartaProps) => void;
-  onCancel: () => void; 
+interface EditarProps {
+  cartaActual: CartaProps;
+  onGuardar: (cartaEditada: CartaProps) => void;
+  onCancelar: () => void;
 }
 
-const FormularioEditarCarta: React.FC<FormularioEditarProps> = ({ cartaInicial, onUpdate, onCancel }) => {
-  
+const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onGuardar, onCancelar }) => {
+  const [formData, setFormData] = useState<CartaProps>(cartaActual);
 
-  const [formData, setFormData] = useState<CartaProps>(cartaInicial);
+ 
+  useEffect(() => {
+    setFormData(cartaActual);
+  }, [cartaActual]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    
-    setFormData(prevData => ({
-      ...prevData,
-      [name]: type === 'number' ? parseInt(value) || 0 : value,
+    setFormData(prev => ({
+      ...prev,
+      [name]: type === 'number' ? (parseInt(value) || 0) : value,
     }));
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.pinctureUrl.trim()) {
-      alert('Por favor, completa los campos requeridos.');
-      return;
-    }
-    
-   
-    onUpdate(formData);
+    onGuardar(formData);
   };
 
-  const InputClass = "w-full p-2 bg-gray-700 border border-gray-600 rounded text-white focus:border-blue-500 focus:ring focus:ring-blue-500/50";
-  const LabelClass = "block text-sm font-medium text-gray-300 mb-1";
-  const SectionTitleClass = "text-xl font-bold text-blue-500 mb-4 border-b border-gray-700 pb-2";
+  const labelClass = "text-xs font-bold text-gray-500 uppercase mb-1 block";
+  const inputClass = "w-full p-2.5 bg-gray-800 border border-gray-700 rounded-lg text-white focus:border-blue-500 outline-none transition-all";
 
   return (
-    <div className="max-w-xl mx-auto p-6 bg-gray-900 border-2 border-blue-800 rounded-xl shadow-2xl shadow-blue-900/40 my-8">
-      <h2 className="text-3xl font-extrabold text-white mb-6 text-center">
-        Editar Carta: {cartaInicial.name}
-      </h2>
+    <div className="max-w-2xl mx-auto p-8 bg-gray-900 border-2 border-blue-900 rounded-2xl shadow-2xl mb-10 relative">
+      <div className="absolute top-4 right-4 text-blue-500/20 text-6xl font-black italic select-none">EDIT</div>
       
-      <form onSubmit={handleSubmit} className="space-y-6">
-       
+      <h2 className="text-3xl font-black text-white mb-8 text-center uppercase italic tracking-tighter">
+        Modificar <span className="text-blue-500">Guerrero</span>
+      </h2>
+
+      <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
         <div>
-          <h3 className={SectionTitleClass}>Información Básica</h3>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div>
-              <label htmlFor="nombre" className={LabelClass}>Nombre</label>
-              <input
-                id="nombre"
-                name="nombre"
-                type="text"
-                value={formData.name}
-                onChange={handleChange}
-                className={InputClass}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="raza" className={LabelClass}>Raza</label>
-              <select
-                id="raza"
-                name="raza"
-                value={formData.raza}
-                onChange={handleChange}
-                className={InputClass}
-                required
-              >
-                {RAZAS_DISPONIBLES.map((raza) => (
-                  <option key={raza} value={raza}>{raza}</option>
-                ))}
-              </select>
-            </div>
-          </div>
+          <label className={labelClass}>Nombre</label>
+          <input name="name" value={formData.name} onChange={handleChange} className={inputClass} />
         </div>
 
         <div>
-          <h3 className={SectionTitleClass}>Estadísticas</h3>
-          <div className="grid grid-cols-3 gap-4">
-            {['ataque', 'defensa', 'vida'].map((stat) => (
-              <div key={stat}>
-                <label htmlFor={stat} className={LabelClass}>{stat.toUpperCase()}</label>
-                <input
-                  id={stat}
-                  name={stat}
-                  type="number"
-                  min="0"
-                 
-                  value={formData[stat as keyof CartaProps]}
-                  onChange={handleChange}
-                  className={InputClass}
-                  required
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-   
-        <div>
-          <h3 className={SectionTitleClass}>Contenido y Multimedia</h3>
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="imagenUrl" className={LabelClass}>URL de la Imagen</label>
-              <input
-                id="imagenUrl"
-                name="imagenUrl"
-                type="url"
-                value={formData.pinctureUrl}
-                onChange={handleChange}
-                className={InputClass}
-                required
-              />
-            </div>
-            <div>
-              <label htmlFor="descripcion" className={LabelClass}>Descripción</label>
-              <textarea
-                id="descripcion"
-                name="descripcion"
-                rows={3}
-                value={formData.description}
-                onChange={handleChange}
-                className={`${InputClass} resize-none`}
-              />
-            </div>
-          </div>
+          <label className={labelClass}>Raza</label>
+          <select name="raza" value={formData.raza} onChange={handleChange} className={inputClass}>
+            <option value="Shinigami">Shinigami</option>
+            <option value="Quincy">Quincy</option>
+            <option value="Arrancar">Arrancar</option>
+            <option value="Hollow">Hollow</option>
+            <option value="Humano">Humano</option>
+          </select>
         </div>
 
-        
-        <div className="pt-4 flex justify-end space-x-4">
-          <button
-            type="button"
-            onClick={onCancel}
-            className="py-2 px-6 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg transition-colors"
-          >
+        <div className="md:col-span-2">
+          <label className={labelClass}>Descripción</label>
+          <textarea name="description" value={formData.description} onChange={handleChange} rows={2} className={inputClass} />
+        </div>
+
+        <div className="md:col-span-2 grid grid-cols-3 gap-4 bg-black/30 p-4 rounded-xl">
+          <input type="number" name="attack" value={formData.attack} onChange={handleChange} placeholder="ATK" className={inputClass} />
+          <input type="number" name="defense" value={formData.defense} onChange={handleChange} placeholder="DEF" className={inputClass} />
+          <input type="number" name="lifepoint" value={formData.lifepoint} onChange={handleChange} placeholder="VIT" className={inputClass} />
+        </div>
+
+        <div className="md:col-span-2">
+          <label className={labelClass}>URL de la Imagen</label>
+          <input name="pinctureUrl" value={formData.pinctureUrl} onChange={handleChange} className={inputClass} />
+        </div>
+
+        <div className="md:col-span-2 flex gap-4">
+          <button type="button" onClick={onCancelar} className="flex-1 py-3 bg-gray-800 text-white font-bold rounded-xl uppercase hover:bg-gray-700 transition-all">
             Cancelar
           </button>
-          <button
-            type="submit"
-            className="py-2 px-6 bg-blue-600 hover:bg-blue-700 text-white font-bold rounded-lg transition-colors shadow-md shadow-blue-900/50"
-          >
-            Guardar Cambios
+          <button type="submit" className="flex-1 py-3 bg-blue-600 text-white font-black rounded-xl uppercase hover:bg-blue-700 shadow-lg shadow-blue-900/40 transition-all">
+            Actualizar Datos
           </button>
         </div>
       </form>
