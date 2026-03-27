@@ -29,7 +29,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name.trim() || !formData.pinctureUrl.trim()) {
       setError("⚠️ Nombre y URL de imagen son obligatorios para forjar la carta.");
@@ -47,6 +47,30 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     });
 
     setFormData({ name: '', description: '', attack: 0, defense: 0, lifepoint: 0, raza: 'Shinigami', pinctureUrl: '' });
+
+      let urlAPI="https://educapi-v2.onrender.com/card";
+       
+      const respuesta = await fetch(urlAPI,{
+        method:'POST',
+        headers:{
+          usersecretpasskey: "Yosk494348IO",
+          "Content-type" : "application/json"
+        },
+        body: JSON.stringify(
+          {
+            name: formData.name,
+            description: formData.description,
+            attack: formData.attack,
+            defense: formData.defense,
+            lifePoints: formData.lifepoint,
+            pictureUrl: formData.pinctureUrl,
+            attributes: {raza:formData.raza},
+          }
+        )
+       
+      });
+          console.log(respuesta)
+     
   };
 
   const labelClass = "text-xs font-bold text-gray-400 uppercase mb-1 block tracking-wider";
@@ -112,8 +136,8 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           <input name="pinctureUrl" value={formData.pinctureUrl} onChange={handleChange} placeholder="https://link-a-imagen-Portrait.webp" className={inputClass} />
         </div>
 
-        <button type="submit" className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">
-          Forjar Carta del Seireitei
+        <button type="submit"  className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">
+          Forjar Carta del Seireitei   
         </button>
       </form>
     </div>

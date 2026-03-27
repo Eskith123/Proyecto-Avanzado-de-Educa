@@ -9,6 +9,8 @@ interface MazoProps {
   onEdit: (carta: CartaProps) => void;
 }
 
+
+
 const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEdit }) => {
   return (
     <div className="flex flex-wrap justify-center gap-6 p-4">

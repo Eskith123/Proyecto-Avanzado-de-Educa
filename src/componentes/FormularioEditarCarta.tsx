@@ -8,7 +8,7 @@ interface EditarProps {
   onCancelar: () => void;
 }
 
-const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onGuardar, onCancelar }) => {
+const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar }) => {
   const [formData, setFormData] = useState<CartaProps>(cartaActual);
 
  
@@ -24,9 +24,30 @@ const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onGuardar, 
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+ const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    onGuardar(formData);
+
+   
+   const urlAPI = `https://educapi-v2.onrender.com/card/${formData.idCard}`; 
+
+const respuesta = await fetch(urlAPI, {
+  method: 'PATCH',
+  headers: {
+    "usersecretpasskey": "Yosk494348IO",
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    name: formData.name,
+    description: formData.description,
+    attack: formData.attack,
+    defense: formData.defense,
+    lifePoints: formData.lifepoint,
+    pictureUrl: formData.pinctureUrl,
+    attributes: { raza: formData.raza }
+  })
+});
+
+console.log(respuesta);
   };
 
   const labelClass = "text-xs font-bold text-gray-500 uppercase mb-1 block";
