@@ -17,7 +17,7 @@ function App() {
 
       const objeto = await respuesta.json();
 
-      //setCartas(objeto.data);
+     // setCartas(objeto.data);
 
       console.log(objeto.data);
     };

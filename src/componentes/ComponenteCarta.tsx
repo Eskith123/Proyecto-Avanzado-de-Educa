@@ -102,7 +102,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
            
             <div className="relative z-10 px-4 pb-2 text-right">
                 <span className="text-[9px] text-gray-600 font-mono tracking-widest uppercase">
-                    ID-CORE: {id.toString().slice(-6)}
+                    ID-CORE: {id}
                 </span>
             </div>
         </div>
