@@ -20,6 +20,8 @@ interface ModalProps {
 }
 
 const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => {
+
+  console.log('Auxilio')
  
   if (!isOpen || !carta) return null;
 
@@ -42,7 +44,7 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
             {carta.name}
           </h1>
           <p className={`text-sm font-bold tracking-widest uppercase mb-8 border-b border-gray-800 pb-4 ${estilos.texto}`}>
-            RAZA: {carta.raza} | ID: {carta.id}
+            RAZA: {carta.raza} | ID: {carta.idCard}
           </p>
 
           <h3 className="text-red-500 font-bold uppercase text-xs mb-2 tracking-widest">Biografía y Habilidades:</h3>
@@ -73,7 +75,7 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Puntos Vida</span>
               <span className="text-4xl font-black text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
-                {carta.lifepoint || 0}
+                {carta.lifePoints || 0}
               </span>
             </div>
 
@@ -86,7 +88,7 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           <div className="absolute inset-0 bg-linear-to-t from-red-950/20 to-transparent"></div>
           
           <img 
-            src={carta.pinctureUrl} 
+            src={carta.pictureUrl} 
             alt={carta.name} 
             className="max-h-full max-w-full object-contain rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 z-10"
             onError={(e) => {

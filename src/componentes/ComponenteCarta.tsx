@@ -4,11 +4,12 @@ import type { CartaProps } from '../tipos/tiposCarta';
 
 const obtenerEstiloRaza = (raza: string) => { 
     switch (raza) {
-        case 'Shinigami': return { claseBorde: 'border-red-600', claseTexto: 'text-red-400' };
-        case 'Quincy': return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400' };
-        case 'Arrancar': return { claseBorde: 'border-gray-300', claseTexto: 'text-gray-300' };
-        case 'Hollow': return { claseBorde: 'border-green-500', claseTexto: 'text-green-500' };
-        case 'Humano': return { claseBorde: 'border-white', claseTexto: 'text-white' };
+        case 'ESPADACHIN': return { claseBorde: 'border-red-600', claseTexto: 'text-red-400' };
+        case 'ARQUERO': return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400' };
+        case 'GUERRERO': return { claseBorde: 'border-gray-300', claseTexto: 'text-gray-300' };
+        case 'ELEMNTAL': return { claseBorde: 'border-green-500', claseTexto: 'text-green-500' };
+        case 'SUPER HUMANO': return { claseBorde: 'border-white', claseTexto: 'text-white' };
+        case 'MAGICO': return { claseBorde: 'border-purple', claseTexto: 'text-purple' };
         default: return { claseBorde: 'border-amber-600', claseTexto: 'text-amber-500' };
     }
 };
@@ -21,7 +22,7 @@ interface CartaDisplayProps extends CartaProps {
 
 const Carta: React.FC<CartaDisplayProps> = (props) => {
    
-    const { id, name, attack, defense, lifepoint, pinctureUrl, raza } = props;
+    const { idCard, name, attack, defense, lifePoints, pictureUrl, raza } = props;
     const { claseBorde } = obtenerEstiloRaza(raza);
 
     const handleButtonClick = (e: React.MouseEvent) => {
@@ -53,7 +54,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
                 </button>
                 
                 <button
-                    onClick={(e) => { handleButtonClick(e); props.onDelete(id); }}
+                    onClick={(e) => { handleButtonClick(e); props.onDelete(idCard); }}
                     className="p-2 bg-red-600/70 hover:bg-red-700 rounded-full text-white transition-colors shadow-lg"
                     title="Eliminar Carta"
                 >
@@ -67,7 +68,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
             <div className="h-48 overflow-hidden bg-black">
                 <img
                     className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity"
-                    src={pinctureUrl}
+                    src={pictureUrl}
                     alt={name}
                     onError={(e) => { (e.target as HTMLImageElement).src = 'https://via.placeholder.com/300x400?text=Imagen+No+Encontrada'; }}
                 />
@@ -94,7 +95,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
                     </div>
                     <div className="text-center">
                         <p className="text-[9px] text-gray-500 font-bold">VIT</p>
-                        <p className="font-black text-green-500">{lifepoint}</p>
+                        <p className="font-black text-green-500">{lifePoints}</p>
                     </div>
                 </div>
             </div>
@@ -102,7 +103,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
            
             <div className="relative z-10 px-4 pb-2 text-right">
                 <span className="text-[9px] text-gray-600 font-mono tracking-widest uppercase">
-                    ID-CORE: {id}
+                    ID-CORE: {idCard}
                 </span>
             </div>
         </div>

@@ -15,9 +15,9 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     description: '',
     attack: 0,
     defense: 0,
-    lifepoint: 0,
-    raza: 'Shinigami' as CartaProps['raza'],
-    pinctureUrl: '',
+    lifePoints: 0,
+    raza: 'GUERRERO' as CartaProps['raza'],
+    pictureUrl: '',
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
@@ -31,11 +31,11 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.pinctureUrl.trim()) {
+    if (!formData.name.trim() || !formData.pictureUrl.trim()) {
       setError("⚠️ Nombre y URL de imagen son obligatorios para forjar la carta.");
       return;
     }
-    if (formData.attack <= 0 || formData.defense <= 0 || formData.lifepoint <= 0) {
+    if (formData.attack <= 0 || formData.defense <= 0 || formData.lifePoints <= 0) {
       setError("⚠️ ¡Las estadísticas deben ser superiores a 0 para el Gotei 13!");
       return;
     }
@@ -46,7 +46,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       idCard: Date.now(),
     });
 
-    setFormData({ name: '', description: '', attack: 0, defense: 0, lifepoint: 0, raza: 'Shinigami', pinctureUrl: '' });
+    setFormData({ name: '', description: '', attack: 0, defense: 0, lifePoints: 0, raza: 'GUERRERO', pictureUrl: '' });
 
       let urlAPI="https://educapi-v2.onrender.com/card";
        
@@ -62,8 +62,8 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
             description: formData.description,
             attack: formData.attack,
             defense: formData.defense,
-            lifePoints: formData.lifepoint,
-            pictureUrl: formData.pinctureUrl,
+            lifePoints: formData.lifePoints,
+            pictureUrl: formData.pictureUrl,
             attributes: {raza:formData.raza},
           }
         )
@@ -102,16 +102,17 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
         <div>
           <label className={labelClass}>Raza / Facción</label>
           <select name="raza" value={formData.raza} onChange={handleChange} className={inputClass}>
-            <option value="Shinigami">Shinigami</option>
-            <option value="Quincy">Quincy</option>
-            <option value="Arrancar">Arrancar</option>
-            <option value="Visored">Visored</option>
-            <option value="Hollow">Hollow</option>
+            <option value="GUERRERO">GUERRERO</option>
+            <option value="ARQUERO">ARQUERO</option>
+            <option value="MAGICO">MAGICO</option>
+            <option value="ELEMENTAL">ELEMENTAL</option>
+            <option value="SUPER HUMANO">SUPER HUMANO</option>
+            <option value="MAGICO">MAGICO</option>
           </select>
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelClass}>Descripción y Poderes (Bankai)</label>
+          <label className={labelClass}>Descripción y Poderes </label>
           <textarea name="description" value={formData.description} onChange={handleChange} rows={3} placeholder="Describe su poder espiritual único..." className={`${inputClass} resize-none`} />
         </div>
 
@@ -127,13 +128,13 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           </div>
           <div>
             <label className="text-[10px] font-black text-green-500 uppercase tracking-widest mb-1 block">Vida</label>
-            <input type="number" name="lifepoint" value={formData.lifepoint} onChange={handleChange} className={`${inputClass} text-center text-xl font-black`} />
+            <input type="number" name="lifePoints" value={formData.lifePoints} onChange={handleChange} className={`${inputClass} text-center text-xl font-black`} />
           </div>
         </div>
 
         <div className="md:col-span-2">
           <label className={labelClass}>URL de la Imagen (Retrato)</label>
-          <input name="pinctureUrl" value={formData.pinctureUrl} onChange={handleChange} placeholder="https://link-a-imagen-Portrait.webp" className={inputClass} />
+          <input name="pictureUrl" value={formData.pictureUrl} onChange={handleChange} placeholder="https://link-a-imagen-Portrait.webp" className={inputClass} />
         </div>
 
         <button type="submit"  className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">

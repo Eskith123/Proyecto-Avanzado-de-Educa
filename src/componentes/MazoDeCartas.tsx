@@ -19,7 +19,7 @@ const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEd
       ) : (
         cartas.map((carta) => (
           <Carta 
-            key={carta.id}
+            key={carta.idCard}
             {...carta} 
             onCardClick={onCardClick}
             onDelete={onDelete}

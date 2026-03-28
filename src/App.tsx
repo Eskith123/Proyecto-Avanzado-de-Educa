@@ -17,7 +17,7 @@ function App() {
 
       const objeto = await respuesta.json();
 
-     // setCartas(objeto.data);
+     setCartas(objeto.data);
 
       console.log(objeto.data);
     };
@@ -36,10 +36,10 @@ useEffect(() => {
       <Route path="/forja" element={<Appv2 vista="crear" cartas={cartas} setCartas={setCartas}/>} />
 
       
-      <Route path="/carta/:id" element={<Appv2 vista="detalle" cartas={cartas} setCartas={setCartas}/>} />
+      <Route path="/carta/:idCard" element={<Appv2 vista="detalle" cartas={cartas} setCartas={setCartas}/>} />
 
       
-      <Route path="/editar/:id" element={<Appv2 vista="editar" cartas={cartas} setCartas={setCartas}/>} />
+      <Route path="/editar/:idCard" element={<Appv2 vista="editar" cartas={cartas} setCartas={setCartas}/>} />
     </Routes>
   );
 }

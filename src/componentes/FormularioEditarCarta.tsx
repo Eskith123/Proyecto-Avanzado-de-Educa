@@ -8,10 +8,10 @@ interface EditarProps {
   onCancelar: () => void;
 }
 
-const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar }) => {
+const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar, onGuardar }) => {
   const [formData, setFormData] = useState<CartaProps>(cartaActual);
 
- 
+
   useEffect(() => {
     setFormData(cartaActual);
   }, [cartaActual]);
@@ -24,30 +24,33 @@ const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar 
     }));
   };
 
- const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-   
-   const urlAPI = `https://educapi-v2.onrender.com/card/${formData.idCard}`; 
 
-const respuesta = await fetch(urlAPI, {
-  method: 'PATCH',
-  headers: {
-    "usersecretpasskey": "Yosk494348IO",
-    "Content-Type": "application/json"
-  },
-  body: JSON.stringify({
-    name: formData.name,
-    description: formData.description,
-    attack: formData.attack,
-    defense: formData.defense,
-    lifePoints: formData.lifepoint,
-    pictureUrl: formData.pinctureUrl,
-    attributes: { raza: formData.raza }
-  })
-});
+    const urlAPI = `https://educapi-v2.onrender.com/card/${formData.idCard}`;
 
-console.log(respuesta);
+    const respuesta = await fetch(urlAPI, {
+      method: 'PATCH',
+      headers: {
+        "usersecretpasskey": "Yosk494348IO",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        description: formData.description,
+        attack: formData.attack,
+        defense: formData.defense,
+        lifePoints: formData.lifePoints,
+        pictureUrl: formData.pictureUrl,
+        attributes: { raza: formData.raza }
+      })
+    });
+
+    console.log(respuesta);   
+
+    onGuardar(formData);
+
   };
 
   const labelClass = "text-xs font-bold text-gray-500 uppercase mb-1 block";
@@ -56,7 +59,7 @@ console.log(respuesta);
   return (
     <div className="max-w-2xl mx-auto p-8 bg-gray-900 border-2 border-blue-900 rounded-2xl shadow-2xl mb-10 relative">
       <div className="absolute top-4 right-4 text-blue-500/20 text-6xl font-black italic select-none">EDIT</div>
-      
+
       <h2 className="text-3xl font-black text-white mb-8 text-center uppercase italic tracking-tighter">
         Modificar <span className="text-blue-500">Guerrero</span>
       </h2>
@@ -70,11 +73,12 @@ console.log(respuesta);
         <div>
           <label className={labelClass}>Raza</label>
           <select name="raza" value={formData.raza} onChange={handleChange} className={inputClass}>
-            <option value="Shinigami">Shinigami</option>
-            <option value="Quincy">Quincy</option>
-            <option value="Arrancar">Arrancar</option>
-            <option value="Hollow">Hollow</option>
-            <option value="Humano">Humano</option>
+            <option value="GUERRERO">GUERRERO</option>
+            <option value="ARQUERO">ARQUERO</option>
+            <option value="MAGICO">MAGICO</option>
+            <option value="ELEMENTAL">ELEMENTAL</option>
+            <option value="SUPER HUMANO">SUPER HUMANO</option>
+            <option value="MAGICO">MAGICO</option>
           </select>
         </div>
 
@@ -86,12 +90,12 @@ console.log(respuesta);
         <div className="md:col-span-2 grid grid-cols-3 gap-4 bg-black/30 p-4 rounded-xl">
           <input type="number" name="attack" value={formData.attack} onChange={handleChange} placeholder="ATK" className={inputClass} />
           <input type="number" name="defense" value={formData.defense} onChange={handleChange} placeholder="DEF" className={inputClass} />
-          <input type="number" name="lifepoint" value={formData.lifepoint} onChange={handleChange} placeholder="VIT" className={inputClass} />
+          <input type="number" name="lifePoints" value={formData.lifePoints} onChange={handleChange} placeholder="VIT" className={inputClass} />
         </div>
 
         <div className="md:col-span-2">
           <label className={labelClass}>URL de la Imagen</label>
-          <input name="pinctureUrl" value={formData.pinctureUrl} onChange={handleChange} className={inputClass} />
+          <input name="pictureUrl" value={formData.pictureUrl} onChange={handleChange} className={inputClass} />
         </div>
 
         <div className="md:col-span-2 flex gap-4">

@@ -17,13 +17,13 @@ interface AppProps {
 }
 
 function Appv2({vista, cartas, setCartas} : AppProps) {
-const { id } = useParams(); 
+const { idCard } = useParams(); 
   const navigate = useNavigate();
   
   const [selectedCard, setSelectedCard] = useState<CartaProps | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
-  const [idParaBorrar, setIdParaBorrar] = useState<number | null>(null);
+  const [idParaBorrar, setIdParaBorrar] = useState<number>(0);
 
   
   useEffect(() => {
@@ -32,9 +32,9 @@ const { id } = useParams();
       const lista = JSON.parse(cartasGuardadas);
       setCartas(lista);
 
-      if (id) {
-        const encontrada = lista.find((c: CartaProps) => c.id === Number(id));
-        if (encontrada) {
+      if (idCard) {
+        const encontrada = lista.find((c: CartaProps) => Number(c.idCard) === Number(idCard));
+        if (encontrada) { 
           if (vista === 'detalle') {
             setSelectedCard(encontrada);
             setIsModalOpen(true);
@@ -44,7 +44,7 @@ const { id } = useParams();
         }
       }
     }
-  }, [vista, id]);
+  }, [vista, idCard]);
 
   useEffect(() => {
     localStorage.setItem('mis_cartas_bleach', JSON.stringify(cartas));
@@ -55,7 +55,7 @@ const { id } = useParams();
       <nav className="bg-gray-900 border-b border-red-900/50 p-4 sticky top-0 z-40 shadow-xl">
         <div className="max-w-6xl mx-auto flex justify-between items-center">
           <Link to="/" className="text-2xl font-black text-red-600 italic uppercase tracking-tighter">
-            Bleach <span className="text-white">TCG</span>
+            Anime <span className="text-white">TCG</span>
           </Link>
           
           <div className="flex gap-6">
@@ -85,8 +85,8 @@ const { id } = useParams();
           <div className="py-10 animate-in zoom-in duration-300">
              <FormularioEditarCarta 
                 cartaActual={selectedCard} 
-                onGuardar={(editada) => {
-                  setCartas(cartas.map(c => c.id === editada.id ? editada : c));
+                onGuardar={(editada) => { 
+                  setCartas(cartas.map(c => c.idCard === editada.idCard ? editada : c));
                   navigate('/');
                 }} 
                 onCancelar={() => navigate('/')} 
@@ -99,9 +99,9 @@ const { id } = useParams();
           <div className="animate-in fade-in duration-500">
             <MazoDeCartas 
               cartas={cartas} 
-              onCardClick={(c) => navigate(`/carta/${c.id}`)} 
-              onDelete={(id) => { setIdParaBorrar(id); setMostrarConfirmacion(true); }}
-              onEdit={(c) => navigate(`/editar/${c.id}`)} 
+              onCardClick={(c) => navigate(`/carta/${c.idCard}`)} 
+              onDelete={(idCard) => { setIdParaBorrar(idCard); setMostrarConfirmacion(true); }}
+              onEdit={(c) => navigate(`/editar/${c.idCard}`)} 
             />
           </div>
         )}
@@ -118,12 +118,12 @@ const { id } = useParams();
 
       <ConfirmacionBorrado 
         abierto={mostrarConfirmacion}
+        idCard={idParaBorrar}
         onConfirmar={() => {
-          setCartas(cartas.filter(c => c.id !== idParaBorrar));
+          setCartas(cartas.filter(c => c.idCard !== idParaBorrar));
           setMostrarConfirmacion(false);
-        }}
-        onCancelar={() => setMostrarConfirmacion(false)}
-      />
+        } }
+        onCancelar={() => setMostrarConfirmacion(false)}       />
     </div>
   )
 }
