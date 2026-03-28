@@ -112,7 +112,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
         </div>
 
         <div className="md:col-span-2">
-          <label className={labelClass}>Descripción y Poderes </label>
+          <label className={labelClass}>Descripción y Poderes (Bankai)</label>
           <textarea name="description" value={formData.description} onChange={handleChange} rows={3} placeholder="Describe su poder espiritual único..." className={`${inputClass} resize-none`} />
         </div>
 
