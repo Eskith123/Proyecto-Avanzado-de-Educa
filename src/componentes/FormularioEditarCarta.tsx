@@ -78,7 +78,7 @@ const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar,
             <option value="MAGICO">MAGICO</option>
             <option value="ELEMENTAL">ELEMENTAL</option>
             <option value="SUPER HUMANO">SUPER HUMANO</option>
-            <option value="MAGICO">MAGICO</option>
+            <option value="ESPADACHIN">ESPADACHIN</option>
           </select>
         </div>
 
