@@ -5,10 +5,12 @@ import type { CartaProps } from '../tipos/tiposCarta';
 
 const obtenerEstiloRaza = (raza: string) => {
   switch (raza) {
-    case 'Shinigami': return { borde: 'border-red-600', texto: 'text-red-400' };
-    case 'Quincy': return { borde: 'border-blue-400', texto: 'text-blue-400' };
-    case 'Arrancar': return { borde: 'border-gray-400', texto: 'text-gray-300' };
-    case 'Visored': return { borde: 'border-yellow-500', texto: 'text-yellow-400' };
+    case 'GUERRERO': return { borde: 'border-red-600', texto: 'text-red-400' };
+    case 'ARQUERO': return { borde: 'border-blue-400', texto: 'text-blue-400' };
+    case 'MAGICO': return { borde: 'border-gray-400', texto: 'text-gray-300' };
+    case 'SUPER HUMANO': return { borde: 'border-yellow-500', texto: 'text-yellow-400' };
+     case 'ELEMENTAL': return { borde: 'border-green-500', texto: 'text-green-400' };
+      case 'ESPADACHIN': return { borde: 'border-black-500', texto: 'text-black-400' };
     default: return { borde: 'border-gray-600', texto: 'text-gray-500' };
   }
 };
