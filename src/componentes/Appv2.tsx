@@ -27,7 +27,7 @@ const { idCard } = useParams();
 
   
   useEffect(() => {
-    const cartasGuardadas = localStorage.getItem('mis_cartas_bleach');
+    const cartasGuardadas = localStorage.getItem('mis_cartas_anime');
     if (cartasGuardadas) {
       const lista = JSON.parse(cartasGuardadas);
       setCartas(lista);
@@ -47,7 +47,7 @@ const { idCard } = useParams();
   }, [vista, idCard]);
 
   useEffect(() => {
-    localStorage.setItem('mis_cartas_bleach', JSON.stringify(cartas));
+    localStorage.setItem('mis_cartas_anime', JSON.stringify(cartas));
   }, [cartas]);
 
   return (

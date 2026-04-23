@@ -15,7 +15,7 @@ const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEd
   return (
     <div className="flex flex-wrap justify-center gap-6 p-4">
       {cartas.length === 0 ? (
-        <p className="text-gray-500 mt-10 italic">No hay cartas en el mazo del Gotei 13...</p>
+        <p className="text-gray-500 mt-10 italic">No hay cartas en el mazo</p>
       ) : (
         cartas.map((carta) => (
           <Carta 
