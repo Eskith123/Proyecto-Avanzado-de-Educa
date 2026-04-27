@@ -4,7 +4,7 @@ import type { CartaProps } from '../tipos/tiposCarta';
 
 const obtenerEstiloRaza = (raza: string) => { 
     switch (raza) {
-        case 'ESPADACHIN': return { claseBorde: 'border-red-600', claseTexto: 'text-red-400' };
+        case 'ESPADACHIN': return { claseBorde: 'border-red-400', claseTexto: 'text-red-400' };
         case 'ARQUERO': return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400' };
         case 'GUERRERO': return { claseBorde: 'border-gray-300', claseTexto: 'text-gray-300' };
         case 'ELEMNTAL': return { claseBorde: 'border-green-500', claseTexto: 'text-green-500' };

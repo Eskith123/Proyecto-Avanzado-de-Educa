@@ -138,7 +138,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
         </div>
 
         <button type="submit"  className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">
-          Forjar Carta del Seireitei   
+          Forjar Carta  
         </button>
       </form>
     </div>
