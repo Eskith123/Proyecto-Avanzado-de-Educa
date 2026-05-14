@@ -7,11 +7,11 @@ interface MazoProps {
   onCardClick: (carta: CartaProps) => void;
   onDelete: (id: number) => void;
   onEdit: (carta: CartaProps) => void;
+  seleccionadas: number[];
+  onToggleSeleccion: (id: number) => void;
 }
 
-
-
-const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEdit }) => {
+const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEdit, seleccionadas, onToggleSeleccion }) => {
   return (
     <div className="flex flex-wrap justify-center gap-6 p-4">
       {cartas.length === 0 ? (
@@ -24,6 +24,8 @@ const MazoDeCartas: React.FC<MazoProps> = ({ cartas, onCardClick, onDelete, onEd
             onCardClick={onCardClick}
             onDelete={onDelete}
             onEdit={onEdit}
+            estaSeleccionada={seleccionadas.includes(carta.idCard)}
+            onToggleSeleccion={onToggleSeleccion}
           />
         ))
       )}

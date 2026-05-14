@@ -9,7 +9,6 @@ import MazoDeCartas from './MazoDeCartas';
 import ModalCartaDetalle from './ModalCartaDetalle';
 import ConfirmacionBorrado from './ConfirmacionBorrado';
 
-
 interface AppProps {
   vista: 'inicio' | 'crear' | 'detalle' | 'editar';
   cartas: CartaProps[];
@@ -17,7 +16,7 @@ interface AppProps {
 }
 
 function Appv2({vista, cartas, setCartas} : AppProps) {
-const { idCard } = useParams(); 
+  const { idCard } = useParams(); 
   const navigate = useNavigate();
   
   const [selectedCard, setSelectedCard] = useState<CartaProps | null>(null);
@@ -26,21 +25,24 @@ const { idCard } = useParams();
   const [idParaBorrar, setIdParaBorrar] = useState<number>(0);
 
   
+  const [seleccionadas, setSeleccionadas] = useState<number[]>([]);
+
+  const toggleSeleccion = (id: number) => {
+    setSeleccionadas(prev => 
+      prev.includes(id) ? prev.filter(item => item !== id) : [...prev, id]
+    );
+  };
+
   useEffect(() => {
     const cartasGuardadas = localStorage.getItem('mis_cartas_anime');
     if (cartasGuardadas) {
       const lista = JSON.parse(cartasGuardadas);
       setCartas(lista);
-
       if (idCard) {
         const encontrada = lista.find((c: CartaProps) => Number(c.idCard) === Number(idCard));
         if (encontrada) { 
-          if (vista === 'detalle') {
-            setSelectedCard(encontrada);
-            setIsModalOpen(true);
-          } else if (vista === 'editar') {
-            setSelectedCard(encontrada); 
-          }
+          if (vista === 'detalle') { setSelectedCard(encontrada); setIsModalOpen(true); }
+          else if (vista === 'editar') { setSelectedCard(encontrada); }
         }
       }
     }
@@ -58,11 +60,16 @@ const { idCard } = useParams();
             Anime <span className="text-white">TCG</span>
           </Link>
           
-          <div className="flex gap-6">
-            <Link to="/" className={`text-sm font-bold uppercase tracking-widest ${vista === 'inicio' ? 'text-red-500' : 'text-gray-400'}`}>
+          <div className="flex gap-6 items-center">
+            
+            <button className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black py-1.5 px-4 rounded-full shadow-lg transition-all uppercase mr-4">
+              Batalla ({seleccionadas.length})
+            </button>
+
+            <Link to="/" className={`text-sm font-bold uppercase ${vista === 'inicio' ? 'text-red-500' : 'text-gray-400'}`}>
               Mazo Central
             </Link>
-            <Link to="/forja" className={`text-sm font-bold uppercase tracking-widest ${vista === 'crear' ? 'text-red-500' : 'text-gray-400'}`}>
+            <Link to="/forja" className={`text-sm font-bold uppercase ${vista === 'crear' ? 'text-red-500' : 'text-gray-400'}`}>
               Taller de Forja
             </Link>
           </div>
@@ -70,62 +77,41 @@ const { idCard } = useParams();
       </nav>
 
       <main className="p-6 max-w-7xl mx-auto">
-      
-        {vista === 'crear' && (
-          <div className="py-10 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <FormularioCrearCarta onNuevaCarta={(nueva) => {
-              setCartas([nueva, ...cartas]);
-              navigate('/');
-            }} />
-          </div>
-        )}
-
-       
-        {vista === 'editar' && selectedCard && (
-          <div className="py-10 animate-in zoom-in duration-300">
-             <FormularioEditarCarta 
-                cartaActual={selectedCard} 
-                onGuardar={(editada) => { 
-                  setCartas(cartas.map(c => c.idCard === editada.idCard ? editada : c));
-                  navigate('/');
-                }} 
-                onCancelar={() => navigate('/')} 
-              />
-          </div>
-        )}
-
-       
         {(vista === 'inicio' || vista === 'detalle') && (
-          <div className="animate-in fade-in duration-500">
-            <MazoDeCartas 
-              cartas={cartas} 
-              onCardClick={(c) => navigate(`/carta/${c.idCard}`)} 
-              onDelete={(idCard) => { setIdParaBorrar(idCard); setMostrarConfirmacion(true); }}
-              onEdit={(c) => navigate(`/editar/${c.idCard}`)} 
-            />
-          </div>
+          <MazoDeCartas 
+            cartas={cartas} 
+            onCardClick={(c) => navigate(`/carta/${c.idCard}`)} 
+            onDelete={(id) => { setIdParaBorrar(id); setMostrarConfirmacion(true); }}
+            onEdit={(c) => navigate(`/editar/${c.idCard}`)} 
+            seleccionadas={seleccionadas}
+            onToggleSeleccion={toggleSeleccion}
+          />
+        )}
+
+        {vista === 'crear' && (
+          <FormularioCrearCarta onNuevaCarta={(nueva) => { setCartas([nueva, ...cartas]); navigate('/'); }} />
+        )}
+
+        {vista === 'editar' && selectedCard && (
+          <FormularioEditarCarta 
+            cartaActual={selectedCard} 
+            onGuardar={(editada) => { setCartas(cartas.map(c => c.idCard === editada.idCard ? editada : c)); navigate('/'); }} 
+            onCancelar={() => navigate('/')} 
+          />
         )}
       </main>
 
-      
       {selectedCard && vista === 'detalle' && (
-        <ModalCartaDetalle 
-          carta={selectedCard} 
-          isOpen={isModalOpen} 
-          onClose={() => { setIsModalOpen(false); navigate('/'); }} 
-        />
+        <ModalCartaDetalle carta={selectedCard} isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); navigate('/'); }} />
       )}
 
       <ConfirmacionBorrado 
-        abierto={mostrarConfirmacion}
-        idCard={idParaBorrar}
-        onConfirmar={() => {
-          setCartas(cartas.filter(c => c.idCard !== idParaBorrar));
-          setMostrarConfirmacion(false);
-        } }
-        onCancelar={() => setMostrarConfirmacion(false)}       />
+        abierto={mostrarConfirmacion} idCard={idParaBorrar}
+        onConfirmar={() => { setCartas(cartas.filter(c => c.idCard !== idParaBorrar)); setMostrarConfirmacion(false); }}
+        onCancelar={() => setMostrarConfirmacion(false)} 
+      />
     </div>
   )
 }
 
-export default Appv2
+export default Appv2;
