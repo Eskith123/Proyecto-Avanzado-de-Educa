@@ -3,17 +3,7 @@
 import React from 'react';
 import type { CartaProps } from '../tipos/tiposCarta';
 
-const obtenerEstiloRaza = (raza: string) => {
-  switch (raza) {
-    case 'GUERRERO': return { borde: 'border-red-600', texto: 'text-red-400' };
-    case 'ARQUERO': return { borde: 'border-blue-400', texto: 'text-blue-400' };
-    case 'MAGICO': return { borde: 'border-gray-400', texto: 'text-gray-300' };
-    case 'SUPER HUMANO': return { borde: 'border-yellow-500', texto: 'text-yellow-400' };
-     case 'ELEMENTAL': return { borde: 'border-green-500', texto: 'text-green-400' };
-      case 'ESPADACHIN': return { borde: 'border-black-500', texto: 'text-black-400' };
-    default: return { borde: 'border-gray-600', texto: 'text-gray-500' };
-  }
-};
+
 
 interface ModalProps {
   carta: CartaProps;
@@ -27,13 +17,13 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
  
   if (!isOpen || !carta) return null;
 
-  const estilos = obtenerEstiloRaza(carta.raza);
+  
 
   return (
     <div className="fixed inset-0 z-50 bg-black/95 flex justify-center items-center p-4 backdrop-blur-sm">
       
      
-      <div className={`bg-gray-900 border-4 ${estilos.borde} w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row`}>
+      <div className={`bg-gray-900 border-4  w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row`}>
         
      
         <button onClick={onClose} className="absolute top-4 right-4 text-white text-4xl font-bold z-50 hover:text-red-600 p-2 transition-colors">
@@ -45,8 +35,8 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           <h1 className="text-5xl font-black mb-3 uppercase tracking-tighter italic text-red-500">
             {carta.name}
           </h1>
-          <p className={`text-sm font-bold tracking-widest uppercase mb-8 border-b border-gray-800 pb-4 ${estilos.texto}`}>
-            RAZA: {carta.raza} | ID: {carta.idCard}
+          <p className={`text-sm font-bold tracking-widest uppercase mb-8 border-b border-gray-800 pb-4 `}>
+             ID: {carta.idCard}
           </p>
 
           <h3 className="text-red-500 font-bold uppercase text-xs mb-2 tracking-widest">Biografía y Habilidades:</h3>

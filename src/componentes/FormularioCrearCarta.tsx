@@ -98,18 +98,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           <label className={labelClass}>Nombre del Personaje</label>
           <input name="name" value={formData.name} onChange={handleChange} placeholder="Ej: Kenpachi Zaraki" className={inputClass} />
         </div>
-
-        <div>
-          <label className={labelClass}>Raza / Facción</label>
-          <select name="raza" value={formData.raza} onChange={handleChange} className={inputClass}>
-            <option value="GUERRERO">GUERRERO</option>
-            <option value="ARQUERO">ARQUERO</option>
-            <option value="MAGICO">MAGICO</option>
-            <option value="ELEMENTAL">ELEMENTAL</option>
-            <option value="SUPER HUMANO">SUPER HUMANO</option>
-            <option value="ESPADACHIN">ESPADACHIN</option>
-          </select>
-        </div>
+  
 
         <div className="md:col-span-2">
           <label className={labelClass}>Descripción y Poderes </label>

@@ -2,17 +2,6 @@
 import React from 'react';
 import type { CartaProps } from '../tipos/tiposCarta';
 
-const obtenerEstiloRaza = (raza: string) => { 
-    switch (raza) {
-        case 'ESPADACHIN': return { claseBorde: 'border-red-400', claseTexto: 'text-red-400' };
-        case 'ARQUERO': return { claseBorde: 'border-blue-400', claseTexto: 'text-blue-400' };
-        case 'GUERRERO': return { claseBorde: 'border-gray-300', claseTexto: 'text-gray-300' };
-        case 'ELEMNTAL': return { claseBorde: 'border-green-500', claseTexto: 'text-green-500' };
-        case 'SUPER HUMANO': return { claseBorde: 'border-white', claseTexto: 'text-white' };
-        case 'MAGICO': return { claseBorde: 'border-purple', claseTexto: 'text-purple' };
-        default: return { claseBorde: 'border-amber-600', claseTexto: 'text-amber-500' };
-    }
-};
 
 interface CartaDisplayProps extends CartaProps {
     onCardClick: (carta: CartaProps) => void;
@@ -24,12 +13,11 @@ interface CartaDisplayProps extends CartaProps {
 
 const Carta: React.FC<CartaDisplayProps> = (props) => {
     const { idCard, name, attack, defense, lifePoints, pictureUrl, raza } = props;
-    const { claseBorde } = obtenerEstiloRaza(raza);
-
+   
     return (
         <div
             onClick={() => props.onCardClick(props)}
-            className={`max-w-72 w-full rounded-xl overflow-hidden shadow-2xl m-3 bg-gray-900 border-2 ${claseBorde} relative p-1 transition-all hover:scale-105 ${props.estaSeleccionada ? 'ring-4 ring-red-600' : ''}`}
+            className={`max-w-72 w-full rounded-xl overflow-hidden shadow-2xl m-3 bg-gray-900 border-2  relative p-1 transition-all hover:scale-105 ${props.estaSeleccionada ? 'ring-4 ring-red-600' : ''}`}
         >
            
             <div className="absolute top-2 right-2 z-20 flex space-x-2">
