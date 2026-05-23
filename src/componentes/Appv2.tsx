@@ -62,9 +62,22 @@ function Appv2({vista, cartas, setCartas} : AppProps) {
           
           <div className="flex gap-6 items-center">
             
-            <button className="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-black py-1.5 px-4 rounded-full shadow-lg transition-all uppercase mr-4">
-              Batalla ({seleccionadas.length})
-            </button>
+              <button 
+      onClick={() => {
+        if (seleccionadas.length === 2) {
+          navigate(`/batalla/${seleccionadas[0]}/${seleccionadas[1]}`);
+        } else {
+          alert("Debes seleccionar exactamente 2 cartas para iniciar una batalla.");
+        }
+      }}
+      className={`text-[10px] font-black py-1.5 px-4 rounded-full shadow-lg transition-all uppercase mr-4 ${
+        seleccionadas.length === 2 
+        ? 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer scale-110' 
+        : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+      }`}
+    >
+      Batalla 
+    </button>
 
             <Link to="/" className={`text-sm font-bold uppercase ${vista === 'inicio' ? 'text-red-500' : 'text-gray-400'}`}>
               Mazo Central
