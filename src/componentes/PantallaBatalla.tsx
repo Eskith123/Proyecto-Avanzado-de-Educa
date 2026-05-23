@@ -67,18 +67,7 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                 backgroundImage: `linear-gradient(to bottom, rgba(3, 7, 18, 0.8), rgba(3, 7, 18, 0.85)), url('https://i.pinimg.com/736x/5f/1c/25/5f1c2537e865d412ccdddfc4f08f4f49.jpg')` 
             }}
         >
-           
-            <button 
-                onClick={() => navigate('/')}
-                className="absolute top-6 left-6 z-30 flex items-center gap-2 bg-gray-900/90 hover:bg-gray-800 border border-gray-700 text-gray-300 hover:text-white px-4 py-2 rounded-xl transition-all font-bold uppercase text-[10px] tracking-widest shadow-2xl"
-            >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
-                Volver al Mazo
-            </button>
-
-            <h1 className="text-4xl md:text-5xl font-black text-white italic uppercase tracking-tighter mb-12 text-center pt-12 md:pt-0">
+         <h1 className="text-4xl md:text-5xl font-black text-white italic uppercase tracking-tighter mb-12 text-center pt-12 md:pt-0">
                 ARENA DE <span className="text-red-600">BATALLA</span>
             </h1>
 
@@ -136,7 +125,7 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                 <div className="flex justify-between items-center border-b border-gray-800 pb-2 mb-3">
                     <h3 className="text-xs font-black uppercase tracking-widest text-gray-400 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                        Logs de Batalla
+                        Turnos de Batalla
                     </h3>
                     <span className="text-[10px] font-mono text-gray-600">TURNO 1: {luchador1.name}</span>
                 </div>
