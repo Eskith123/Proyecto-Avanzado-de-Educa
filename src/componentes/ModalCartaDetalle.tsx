@@ -1,9 +1,5 @@
-
-
 import React from 'react';
 import type { CartaProps } from '../tipos/tiposCarta';
-
-
 
 interface ModalProps {
   carta: CartaProps;
@@ -12,32 +8,41 @@ interface ModalProps {
 }
 
 const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => {
-
-  console.log('Auxilio')
- 
+  console.log('Auxilio');
+  
   if (!isOpen || !carta) return null;
 
-  
+  // Renderizado dinámico de etiquetas estéticas según el tipo de habilidad
+  const getBadgeHabilidad = (hab: string) => {
+    switch (hab) {
+      case 'DEFENSIVA':
+        return <span className="px-3 py-1 bg-blue-950 border border-blue-700 text-blue-400 font-black rounded-lg text-xs tracking-wider">🛡️ DEFENSIVA</span>;
+      case 'CURATIVA':
+        return <span className="px-3 py-1 bg-green-950 border border-green-700 text-green-400 font-black rounded-lg text-xs tracking-wider">💖 CURATIVA</span>;
+      default:
+        return <span className="px-3 py-1 bg-red-950 border border-red-700 text-red-400 font-black rounded-lg text-xs tracking-wider">⚔️ ATAQUE</span>;
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/95 flex justify-center items-center p-4 backdrop-blur-sm">
-      
-     
-      <div className={`bg-gray-900 border-4  w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row`}>
+      <div className="bg-gray-900 border-4 w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row">
         
-     
         <button onClick={onClose} className="absolute top-4 right-4 text-white text-4xl font-bold z-50 hover:text-red-600 p-2 transition-colors">
           &times;
         </button>
 
-     
         <div className="w-full md:w-1/2 p-10 overflow-y-auto text-white flex flex-col relative z-10">
           <h1 className="text-5xl font-black mb-3 uppercase tracking-tighter italic text-red-500">
             {carta.name}
           </h1>
-          <p className={`text-sm font-bold tracking-widest uppercase mb-8 border-b border-gray-800 pb-4 `}>
-             ID: {carta.idCard}
-          </p>
+          <div className="flex items-center gap-3 border-b border-gray-800 pb-4 mb-6">
+            <p className="text-sm font-bold tracking-widest uppercase">
+               ID: {carta.idCard}
+            </p>
+            {/* 🌟 Muestra de habilidad en el detalle */}
+            {getBadgeHabilidad(carta.habilidad)}
+          </div>
 
           <h3 className="text-red-500 font-bold uppercase text-xs mb-2 tracking-widest">Biografía y Habilidades:</h3>
           <p className="text-gray-300 text-lg leading-relaxed italic mb-10 bg-gray-950/50 p-4 rounded-lg border border-gray-800">
@@ -46,15 +51,12 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
 
           <h3 className="text-red-500 font-bold uppercase text-xs mb-4 tracking-widest">Estadísticas de Batalla:</h3>
           <div className="space-y-5 bg-gray-950/50 p-6 rounded-xl border border-gray-800">
-            
-           
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Ataque</span>
               <span className="text-4xl font-black text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.5)]">
                 {carta.attack || 0}
               </span>
             </div>
-
             
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Defensa</span>
@@ -63,28 +65,22 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
               </span>
             </div>
 
-           
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Puntos Vida</span>
               <span className="text-4xl font-black text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
                 {carta.lifePoints || 0}
               </span>
             </div>
-
           </div>
         </div>
 
-       
         <div className="w-full md:w-1/2 bg-black flex justify-center items-center p-6 relative">
-         
           <div className="absolute inset-0 bg-linear-to-t from-red-950/20 to-transparent"></div>
-          
           <img 
             src={carta.pictureUrl} 
             alt={carta.name} 
             className="max-h-full max-w-full object-contain rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 z-10"
             onError={(e) => {
-             
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x600?text=Imagen+No+Encontrada';
             }}
           />
