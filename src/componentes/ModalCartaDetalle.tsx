@@ -3,8 +3,6 @@
 import React from 'react';
 import type { CartaProps } from '../tipos/tiposCarta';
 
-
-
 interface ModalProps {
   carta: CartaProps;
   isOpen: boolean;
@@ -14,27 +12,62 @@ interface ModalProps {
 const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => {
 
   console.log('Auxilio')
- 
+  
   if (!isOpen || !carta) return null;
 
-  
+ 
+  const renderBadgeHabilidad = () => {
+ 
+    const habilidad = carta.habilidad || (carta as any).attributes?.habilidad;
+    
+    if (!habilidad) return null;
+
+    switch (habilidad.toUpperCase()) {
+      case 'ATAQUE':
+        return (
+          <span className="px-3 py-1 bg-red-600/20 border border-red-500 text-red-400 font-black text-xs uppercase tracking-widest rounded-full shadow-lg shadow-red-950/50">
+            ⚔️ Ataque
+          </span>
+        );
+      case 'DEFENSIVA':
+        return (
+          <span className="px-3 py-1 bg-blue-600/20 border border-blue-500 text-blue-400 font-black text-xs uppercase tracking-widest rounded-full shadow-lg shadow-blue-950/50">
+            🛡️ Defensiva
+          </span>
+        );
+      case 'CURATIVA':
+        return (
+          <span className="px-3 py-1 bg-green-600/20 border border-green-500 text-green-400 font-black text-xs uppercase tracking-widest rounded-full shadow-lg shadow-green-950/50">
+            💖 Curativa
+          </span>
+        );
+      default:
+        return null;
+    }
+  };
 
   return (
     <div className="fixed inset-0 z-50 bg-black/95 flex justify-center items-center p-4 backdrop-blur-sm">
       
-     
-      <div className={`bg-gray-900 border-4  w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row`}>
+      <div className={`bg-gray-900 border-4 w-full max-w-4xl h-full max-h-[80vh] rounded-xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row`}>
         
-     
         <button onClick={onClose} className="absolute top-4 right-4 text-white text-4xl font-bold z-50 hover:text-red-600 p-2 transition-colors">
           &times;
         </button>
 
-     
         <div className="w-full md:w-1/2 p-10 overflow-y-auto text-white flex flex-col relative z-10">
-          <h1 className="text-5xl font-black mb-3 uppercase tracking-tighter italic text-red-500">
-            {carta.name}
-          </h1>
+          
+         
+          <div className="flex flex-wrap items-center gap-4 mb-3">
+            <h1 className="text-5xl font-black uppercase tracking-tighter italic text-red-500">
+              {carta.name}
+            </h1>
+           
+            <div className="flex items-center pt-2 md:pt-0">
+              {renderBadgeHabilidad()}
+            </div>
+          </div>
+
           <p className={`text-sm font-bold tracking-widest uppercase mb-8 border-b border-gray-800 pb-4 `}>
              ID: {carta.idCard}
           </p>
@@ -47,7 +80,6 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           <h3 className="text-red-500 font-bold uppercase text-xs mb-4 tracking-widest">Estadísticas de Batalla:</h3>
           <div className="space-y-5 bg-gray-950/50 p-6 rounded-xl border border-gray-800">
             
-           
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Ataque</span>
               <span className="text-4xl font-black text-red-600 drop-shadow-[0_0_10px_rgba(220,38,38,0.5)]">
@@ -55,7 +87,6 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
               </span>
             </div>
 
-            
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Defensa</span>
               <span className="text-4xl font-black text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
@@ -63,7 +94,6 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
               </span>
             </div>
 
-           
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Puntos Vida</span>
               <span className="text-4xl font-black text-green-500 drop-shadow-[0_0_10px_rgba(34,197,94,0.5)]">
@@ -74,9 +104,8 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
           </div>
         </div>
 
-       
         <div className="w-full md:w-1/2 bg-black flex justify-center items-center p-6 relative">
-         
+          
           <div className="absolute inset-0 bg-linear-to-t from-red-950/20 to-transparent"></div>
           
           <img 
@@ -84,7 +113,6 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
             alt={carta.name} 
             className="max-h-full max-w-full object-contain rounded-lg shadow-[0_0_30px_rgba(0,0,0,0.5)] border-2 border-gray-800 z-10"
             onError={(e) => {
-             
               (e.target as HTMLImageElement).src = 'https://via.placeholder.com/400x600?text=Imagen+No+Encontrada';
             }}
           />

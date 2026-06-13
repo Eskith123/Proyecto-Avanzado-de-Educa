@@ -70,6 +70,15 @@ const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar,
           <input name="name" value={formData.name} onChange={handleChange} className={inputClass} />
         </div>
 
+         <div>
+          <label className={labelClass}>Habilidad Principal</label>
+          <select name="habilidad" value={formData.habilidad} onChange={handleChange} className={inputClass}>
+            <option value="ATAQUE">⚔️ Especialista en Ataque</option>
+            <option value="DEFENSIVA">🛡️ Especialista en Defensa</option>
+            <option value="CURATIVA">💖 Especialista en Curación</option>
+          </select>
+        </div>
+
         <div className="md:col-span-2">
           <label className={labelClass}>Descripción</label>
           <textarea name="description" value={formData.description} onChange={handleChange} rows={2} className={inputClass} />

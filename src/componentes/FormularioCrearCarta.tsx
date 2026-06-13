@@ -9,7 +9,6 @@ interface FormularioProps {
 const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
   const [error, setError] = useState<string | null>(null);
 
- 
   const [formData, setFormData] = useState({
     name: '',
     description: '',
@@ -17,6 +16,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     defense: 0,
     lifePoints: 0,
     raza: 'GUERRERO' as CartaProps['raza'],
+    habilidad: 'ATAQUE' as CartaProps['habilidad'], // <-- Inicializado aquí
     pictureUrl: '',
   });
 
@@ -46,31 +46,31 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       idCard: Date.now(),
     });
 
-    setFormData({ name: '', description: '', attack: 0, defense: 0, lifePoints: 0, raza: 'GUERRERO', pictureUrl: '' });
+    setFormData({ name: '', description: '', attack: 0, defense: 0, lifePoints: 0, raza: 'GUERRERO', habilidad: 'ATAQUE', pictureUrl: '' });
 
-      let urlAPI="https://educapi-v2.onrender.com/card";
+    let urlAPI = "https://educapi-v2.onrender.com/card";
        
-      const respuesta = await fetch(urlAPI,{
-        method:'POST',
-        headers:{
-          usersecretpasskey: "Yosk494348IO",
-          "Content-type" : "application/json"
+    const respuesta = await fetch(urlAPI, {
+      method: 'POST',
+      headers: {
+        usersecretpasskey: "Yosk494348IO",
+        "Content-type" : "application/json"
+      },
+      body: JSON.stringify({
+        name: formData.name,
+        description: formData.description,
+        attack: formData.attack,
+        defense: formData.defense,
+        lifePoints: formData.lifePoints,
+        pictureUrl: formData.pictureUrl,
+        // Almacenamos la raza y la nueva habilidad dentro de attributes
+        attributes: { 
+          raza: formData.raza, 
+          habilidad: formData.habilidad 
         },
-        body: JSON.stringify(
-          {
-            name: formData.name,
-            description: formData.description,
-            attack: formData.attack,
-            defense: formData.defense,
-            lifePoints: formData.lifePoints,
-            pictureUrl: formData.pictureUrl,
-            attributes: {raza:formData.raza},
-          }
-        )
-       
-      });
-          console.log(respuesta)
-     
+      })
+    });
+    console.log(respuesta);
   };
 
   const labelClass = "text-xs font-bold text-gray-400 uppercase mb-1 block tracking-wider";
@@ -78,7 +78,6 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
 
   return (
     <div className="max-w-2xl mx-auto p-8 bg-gray-900 border-2 border-red-900 rounded-2xl shadow-2xl shadow-red-950/20 mb-10 relative overflow-hidden">
-      
       
       <div className="absolute -top-10 -right-10 w-32 h-32 bg-red-600/10 rounded-full blur-3xl"></div>
       
@@ -98,14 +97,22 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           <label className={labelClass}>Nombre del Personaje</label>
           <input name="name" value={formData.name} onChange={handleChange} placeholder="Ej: Kenpachi Zaraki" className={inputClass} />
         </div>
-  
+
+      
+        <div>
+          <label className={labelClass}>Habilidad Principal</label>
+          <select name="habilidad" value={formData.habilidad} onChange={handleChange} className={inputClass}>
+            <option value="ATAQUE">⚔️ Especialista en Ataque</option>
+            <option value="DEFENSIVA">🛡️ Especialista en Defensa</option>
+            <option value="CURATIVA">💖 Especialista en Curación</option>
+          </select>
+        </div>
 
         <div className="md:col-span-2">
           <label className={labelClass}>Descripción y Poderes </label>
           <textarea name="description" value={formData.description} onChange={handleChange} rows={3} placeholder="Describe su poder espiritual único..." className={`${inputClass} resize-none`} />
         </div>
 
-       
         <div className="md:col-span-2 grid grid-cols-3 gap-4 bg-black/30 p-4 rounded-xl border border-gray-800">
           <div>
             <label className="text-[10px] font-black text-red-500 uppercase tracking-widest mb-1 block">Ataque</label>
@@ -126,7 +133,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
           <input name="pictureUrl" value={formData.pictureUrl} onChange={handleChange} placeholder="https://link-a-imagen-Portrait.webp" className={inputClass} />
         </div>
 
-        <button type="submit"  className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">
+        <button type="submit" className="md:col-span-2 py-4 bg-red-600 hover:bg-red-700 text-white font-black rounded-xl uppercase tracking-widest transition-all shadow-lg shadow-red-950/30 active:scale-95">
           Forjar Carta  
         </button>
       </form>
