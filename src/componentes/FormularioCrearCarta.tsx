@@ -63,7 +63,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
         defense: formData.defense,
         lifePoints: formData.lifePoints,
         pictureUrl: formData.pictureUrl,
-        // Almacenamos la raza y la nueva habilidad dentro de attributes
+    
         attributes: { 
           raza: formData.raza, 
           habilidad: formData.habilidad 
