@@ -305,8 +305,8 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>VIDA REAL:</span>
                                 <span>{vidaJ1} / {maxVidaJ1} HP</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 rounded-full overflow-hidden border border-gray-800">
-                                <div className="bg-gradient-to-r from-green-600 to-green-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctVidaJ1}%` }}></div>
+                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                                <div className="bg-linear-to-r from-green-600 to-green-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctVidaJ1}%` }}></div>
                             </div>
                         </div>
 
@@ -315,8 +315,8 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>ESCUDO REAL:</span>
                                 <span>{defensaJ1} DEF</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 rounded-full overflow-hidden border border-gray-800">
-                                <div className="bg-gradient-to-r from-blue-600 to-blue-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctDefensaJ1}%` }}></div>
+                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                                <div className="bg-linear-to-r from-blue-600 to-blue-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctDefensaJ1}%` }}></div>
                             </div>
                         </div>
 
@@ -326,8 +326,8 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>ATAQUE EN TIEMPO REAL:</span>
                                 <span>{ataqueJ1} ATQ</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 rounded-full overflow-hidden border border-gray-800">
-                                <div className="bg-gradient-to-r from-red-600 to-orange-500 h-2 transition-all duration-500 ease-out" style={{ width: `${pctAtaqueJ1}%` }}></div>
+                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                                <div className="bg-linear-to-r from-red-600 to-orange-500 h-2 transition-all duration-500 ease-out" style={{ width: `${pctAtaqueJ1}%` }}></div>
                             </div>
                         </div>
                     </div>
@@ -362,8 +362,8 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>VIDA REAL:</span>
                                 <span>{vidaJ2} / {maxVidaJ2} HP</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 rounded-full overflow-hidden border border-gray-800">
-                                <div className="bg-gradient-to-r from-green-600 to-green-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctVidaJ2}%` }}></div>
+                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                                <div className="bg-linear-to-r from-green-600 to-green-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctVidaJ2}%` }}></div>
                             </div>
                         </div>
 
@@ -372,8 +372,8 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>ESCUDO REAL:</span>
                                 <span>{defensaJ2} DEF</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 rounded-full overflow-hidden border border-gray-800">
-                                <div className="bg-gradient-to-r from-blue-600 to-blue-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctDefensaJ2}%` }}></div>
+                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                                <div className="bg-linear-to-r from-blue-600 to-blue-400 h-2 transition-all duration-500 ease-out" style={{ width: `${pctDefensaJ2}%` }}></div>
                             </div>
                         </div>
 
@@ -383,8 +383,8 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>ATAQUE EN TIEMPO REAL:</span>
                                 <span>{ataqueJ2} ATQ</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 rounded-full overflow-hidden border border-gray-800">
-                                <div className="bg-gradient-to-r from-red-600 to-orange-500 h-2 transition-all duration-500 ease-out" style={{ width: `${pctAtaqueJ2}%` }}></div>
+                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                                <div className="bg-linear-to-r from-red-600 to-orange-500 h-2 transition-all duration-500 ease-out" style={{ width: `${pctAtaqueJ2}%` }}></div>
                             </div>
                         </div>
                     </div>
