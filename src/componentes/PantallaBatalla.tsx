@@ -326,7 +326,7 @@ const PantallaBatalla: React.FC<BatallaProps> = ({ cartas }) => {
                                 <span>ATAQUE EN TIEMPO REAL:</span>
                                 <span>{ataqueJ1} ATQ</span>
                             </div>
-                            <div className="w-full bg-gray-900 rounded-full h-2 overflow-hidden border border-gray-800">
+                            <div className="w-full bg-gray-900 h-2 rounded-full overflow-hidden border border-gray-800">
                                 <div className="bg-linear-to-r from-red-600 to-orange-500 h-2 transition-all duration-500 ease-out" style={{ width: `${pctAtaqueJ1}%` }}></div>
                             </div>
                         </div>

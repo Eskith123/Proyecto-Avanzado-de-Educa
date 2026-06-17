@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import type { CartaProps } from '../tipos/tiposCarta';
 
@@ -86,7 +84,6 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
                 {carta.attack || 0}
               </span>
             </div>
-
             <div className="flex justify-between items-center border-b border-gray-800 pb-2">
               <span className="text-gray-500 uppercase font-black tracking-widest">Defensa</span>
               <span className="text-4xl font-black text-blue-500 drop-shadow-[0_0_10px_rgba(59,130,246,0.5)]">
@@ -100,14 +97,12 @@ const ModalCartaDetalle: React.FC<ModalProps> = ({ carta, isOpen, onClose }) => 
                 {carta.lifePoints || 0}
               </span>
             </div>
-
           </div>
         </div>
 
         <div className="w-full md:w-1/2 bg-black flex justify-center items-center p-6 relative">
           
           <div className="absolute inset-0 bg-linear-to-t from-red-950/20 to-transparent"></div>
-          
           <img 
             src={carta.pictureUrl} 
             alt={carta.name} 
