@@ -15,7 +15,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
     attack: 0,
     defense: 0,
     lifePoints: 0,
-    raza: 'GUERRERO' as CartaProps['raza'],
+  
     habilidad: 'ATAQUE' as CartaProps['habilidad'], // <-- Inicializado aquí
     pictureUrl: '',
   });
@@ -46,7 +46,7 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
       idCard: Date.now(),
     });
 
-    setFormData({ name: '', description: '', attack: 0, defense: 0, lifePoints: 0, raza: 'GUERRERO', habilidad: 'ATAQUE', pictureUrl: '' });
+    setFormData({ name: '', description: '', attack: 0, defense: 0, lifePoints: 0, habilidad: 'ATAQUE', pictureUrl: '' });
 
     let urlAPI = "https://educapi-v2.onrender.com/card";
        
@@ -65,7 +65,6 @@ const FormularioCrearCarta: React.FC<FormularioProps> = ({ onNuevaCarta }) => {
         pictureUrl: formData.pictureUrl,
     
         attributes: { 
-          raza: formData.raza, 
           habilidad: formData.habilidad 
         },
       })

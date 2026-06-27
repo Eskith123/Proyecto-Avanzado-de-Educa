@@ -8,9 +8,10 @@ import FormularioEditarCarta from './FormularioEditarCarta';
 import MazoDeCartas from './MazoDeCartas';
 import ModalCartaDetalle from './ModalCartaDetalle';
 import ConfirmacionBorrado from './ConfirmacionBorrado';
+import GenerarCartaIA from './GenerarCartaIA'; 
 
 interface AppProps {
-  vista: 'inicio' | 'crear' | 'detalle' | 'editar';
+  vista: 'inicio' | 'crear' | 'detalle' | 'editar' | 'generar-ia'; 
   cartas: CartaProps[];
   setCartas: Function
 }
@@ -24,7 +25,6 @@ function Appv2({vista, cartas, setCartas} : AppProps) {
   const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
   const [idParaBorrar, setIdParaBorrar] = useState<number>(0);
 
-  
   const [seleccionadas, setSeleccionadas] = useState<number[]>([]);
 
   const toggleSeleccion = (id: number) => {
@@ -62,28 +62,32 @@ function Appv2({vista, cartas, setCartas} : AppProps) {
           
           <div className="flex gap-6 items-center">
             
-              <button 
-      onClick={() => {
-        if (seleccionadas.length === 2) {
-          navigate(`/batalla/${seleccionadas[0]}/${seleccionadas[1]}`);
-        } else {
-          alert("Debes seleccionar exactamente 2 cartas para iniciar una batalla.");
-        }
-      }}
-      className={`text-[10px] font-black py-1.5 px-4 rounded-full shadow-lg transition-all uppercase mr-4 ${
-        seleccionadas.length === 2 
-        ? 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer scale-110' 
-        : 'bg-gray-700 text-gray-500 cursor-not-allowed'
-      }`}
-    >
-      Batalla 
-    </button>
+            <button 
+              onClick={() => {
+                if (seleccionadas.length === 2) {
+                  navigate(`/batalla/${seleccionadas[0]}/${seleccionadas[1]}`);
+                } else {
+                  alert("Debes seleccionar exactamente 2 cartas para iniciar una batalla.");
+                }
+              }}
+              className={`text-[10px] font-black py-1.5 px-4 rounded-full shadow-lg transition-all uppercase mr-4 ${
+                seleccionadas.length === 2 
+                ? 'bg-blue-600 hover:bg-blue-700 text-white cursor-pointer scale-110' 
+                : 'bg-gray-700 text-gray-500 cursor-not-allowed'
+              }`}
+            >
+              Batalla 
+            </button>
 
-            <Link to="/" className={`text-sm font-bold uppercase ${vista === 'inicio' ? 'text-red-500' : 'text-gray-400'}`}>
+            <Link to="/" className={`text-sm font-bold uppercase transition-colors duration-200 ${vista === 'inicio' ? 'text-red-500' : 'text-gray-400 hover:text-gray-200'}`}>
               Mazo Central
             </Link>
-            <Link to="/forja" className={`text-sm font-bold uppercase ${vista === 'crear' ? 'text-red-500' : 'text-gray-400'}`}>
+            <Link to="/forja" className={`text-sm font-bold uppercase transition-colors duration-200 ${vista === 'crear' ? 'text-red-500' : 'text-gray-400 hover:text-gray-200'}`}>
               Taller de Forja
+            </Link>
+            
+            <Link to="/generar-carta-ia" className={`text-sm font-bold uppercase transition-colors duration-200 ${vista === 'generar-ia' ? 'text-purple-500' : 'text-purple-400/70 hover:text-purple-400'}`}>
+              🔮 FORJAR GUERRERO IA
             </Link>
           </div>
         </div>
@@ -111,6 +115,11 @@ function Appv2({vista, cartas, setCartas} : AppProps) {
             onGuardar={(editada) => { setCartas(cartas.map(c => c.idCard === editada.idCard ? editada : c)); navigate('/'); }} 
             onCancelar={() => navigate('/')} 
           />
+        )}
+
+       
+        {vista === 'generar-ia' && (
+          <GenerarCartaIA onCartaCreada={(nueva) => { setCartas([nueva, ...cartas]); }} />
         )}
       </main>
 

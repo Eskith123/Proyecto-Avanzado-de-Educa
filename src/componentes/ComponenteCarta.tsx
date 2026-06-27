@@ -13,7 +13,7 @@ interface CartaDisplayProps extends CartaProps {
 }
 
 const Carta: React.FC<CartaDisplayProps> = (props) => {
-    const { idCard, name, attack, defense, lifePoints, pictureUrl, raza, ocultarAcciones = false, ocultarSeleccionar = false } = props;
+    const { idCard, name, attack, defense, lifePoints, pictureUrl, ocultarAcciones = false, ocultarSeleccionar = false } = props;
    
     return (
         <div
@@ -34,7 +34,7 @@ const Carta: React.FC<CartaDisplayProps> = (props) => {
             
             <div className="px-4 py-3">
                 <h2 className="font-black text-xl uppercase text-red-500 truncate">{name}</h2>
-                <span className="text-[10px] text-gray-500 font-bold uppercase">{raza}</span>
+               
 
                 <div className="flex justify-between items-center bg-black/40 rounded-lg p-2 border border-gray-800 mt-2 mb-4">
                     <div className="text-center"><p className="text-[9px] text-gray-500">ATK</p><p className="font-black text-red-600">{attack}</p></div>

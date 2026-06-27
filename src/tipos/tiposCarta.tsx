@@ -6,7 +6,6 @@ export interface CartaProps {
   attack: number;      
   defense: number;     
   lifePoints: number;   
-  raza: 'ESPADACHIN' | 'ARQUERO' | 'ELEMENTAL' | 'MAGICO' | 'GUERRERO' | 'SUPER HUMANO';
   habilidad: 'ATAQUE' | 'DEFENSIVA' | 'CURATIVA';
   pictureUrl: string; 
 }

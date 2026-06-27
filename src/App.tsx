@@ -3,6 +3,7 @@ import { Route, Routes } from 'react-router';
 import type { CartaProps } from './tipos/tiposCarta';
 import Appv2 from './componentes/Appv2';
 import PantallaBatalla from './componentes/PantallaBatalla';
+import GenerarCartaIA from './componentes/GenerarCartaIA';
 
 function App() {
   const [cartas, setCartas] = useState<CartaProps[]>([]);
@@ -43,6 +44,8 @@ useEffect(() => {
       <Route path="/editar/:idCard" element={<Appv2 vista="editar" cartas={cartas} setCartas={setCartas}/>} />
 
       <Route path="/batalla/:id1/:id2" element={<PantallaBatalla cartas={cartas}  />} />
+
+      <Route  path="/generar-carta-ia"  element={<GenerarCartaIA onCartaCreada={(nuevaCarta) => setCartas(prev => [nuevaCarta, ...prev])} />} />
     </Routes>
   );
 }
