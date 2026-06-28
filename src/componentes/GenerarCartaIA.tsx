@@ -42,7 +42,7 @@ const GenerarCartaIA: React.FC<GenerarCartaIAProps> = ({ onCartaCreada }) => {
                 if (response.status === 503) {
                     throw new Error("La IA no está disponible en este momento. ¡Inténtalo de nuevo!");
                 }
-                throw new Error("Error al invocar la energía de la IA. Revisa tu conexión o credenciales.");
+                throw new Error("Error al invocar la energía de la IA. Revisa tu conexión");
             }
 
             const data = await response.json();

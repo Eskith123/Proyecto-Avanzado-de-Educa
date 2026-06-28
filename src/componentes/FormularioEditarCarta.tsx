@@ -43,7 +43,6 @@ const FormularioEditarCarta: React.FC<EditarProps> = ({ cartaActual, onCancelar,
         defense: formData.defense,
         lifePoints: formData.lifePoints,
         pictureUrl: formData.pictureUrl,
-        attributes: { raza: formData.raza }
       })
     });
 
